@@ -81,9 +81,42 @@ Mesh* Mesh::generateRegularPolygon(GLuint num, GLdouble r) {
 		mesh->vVertices.emplace_back(r * glm::cos(alpha), r * glm::sin(alpha), 0.0);
 	}
 
-	for (int i = 0; i < num; i++) {
-		mesh->vColors.emplace_back(0.0, 0.0, 0.0, 1.0);
-	}
+	return mesh;
+}
+
+Mesh* Mesh::generateRGBTriangle(GLdouble r) {
+	Mesh* mesh = generateRegularPolygon(3, r);
+	mesh->mPrimitive = GL_TRIANGLES;
+
+	mesh->vColors.emplace_back(1.0, 0.0, 0.0, 1.0);
+	mesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
+	mesh->vColors.emplace_back(0.0, 0.0, 1.0, 1.0);
+
+	return mesh;
+}
+
+Mesh* Mesh::generateRectangle(GLdouble w, GLdouble h) {
+	Mesh* mesh = new Mesh();
+	mesh->mPrimitive = GL_TRIANGLE_STRIP;
+	mesh->mNumVertices = 4;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+
+	mesh->vVertices.emplace_back(-w / 2, h / 2);
+	mesh->vVertices.emplace_back(w / 2, h / 2);
+	mesh->vVertices.emplace_back(w / 2, -h / 2);
+	mesh->vVertices.emplace_back(-w / 2, -h / 2);
+
+	return mesh;
+}
+
+Mesh* Mesh::generateRGBRectangle(GLdouble w, GLdouble h) {
+	Mesh* mesh = generateRectangle(w, h);
+	mesh->mPrimitive = GL_TRIANGLES;
+
+	mesh->vColors.emplace_back(1.0, 0.0, 0.0, 1.0);
+	mesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
+	mesh->vColors.emplace_back(0.0, 0.0, 1.0, 1.0);
+	mesh->vColors.emplace_back(1.0, 0.0, 0.0, 1.0);
 
 
 	return mesh;

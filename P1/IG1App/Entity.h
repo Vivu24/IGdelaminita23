@@ -10,7 +10,7 @@ class Abs_Entity // abstract class
 {
 public:
 	Abs_Entity()
-	  : mModelMat(1.0){}; // 4x4 identity matrix
+	  : mModelMat(1.0), mColor(1) {}; // 4x4 identity matrix
 	virtual ~Abs_Entity() = default;
 
 	Abs_Entity(const Abs_Entity& e) = delete;            // no copy constructor
@@ -22,12 +22,18 @@ public:
 	glm::dmat4 const& modelMat() const { return mModelMat; };
 	void setModelMat(glm::dmat4 const& aMat) { mModelMat = aMat; };
 
+	// Color setter and getter
+	glm::dvec4 getColor() { return mColor; }
+	void setColor(GLdouble r, GLdouble g, GLdouble b, GLdouble a);
+
 protected:
 	Mesh* mMesh = nullptr; // the mesh
 	glm::dmat4 mModelMat;  // modeling matrix
 
 	// transfers modelViewMat to the GPU
 	virtual void upload(glm::dmat4 const& mModelViewMat) const;
+
+	glm::dvec4 mColor;
 };
 
 class EjesRGB : public Abs_Entity
@@ -41,8 +47,24 @@ public:
 class RegularPolygon : public Abs_Entity 
 {
 public:
-	explicit RegularPolygon(GLuint num, GLdouble r);
+	explicit RegularPolygon(GLuint num, GLdouble radius, GLdouble r, GLdouble g, GLdouble b, GLdouble a);
 	~RegularPolygon();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+};
+
+class RGBTriangle : public Abs_Entity
+{
+public:
+	explicit RGBTriangle(GLdouble radius);
+	~RGBTriangle();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+};
+
+class RGBRectangle : public Abs_Entity
+{
+public:
+	explicit RGBRectangle(GLdouble w, GLdouble h);
+	~RGBRectangle();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
 
