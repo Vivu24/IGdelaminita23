@@ -109,10 +109,11 @@ RGBTriangle::render(dmat4 const& modelViewMat) const
 void 
 RGBTriangle::update() {
 	// Rotación sobre sí mismo
-	mModelMat = translate(mModelMat, dvec3(.0, .0, .0)) * rotate(dmat4(1), -radians(rotationVelocity), dvec3(0, 0.0, 1.0));
+	mModelMat = /*translate(mModelMat, dvec3(.0, .0, .0)) * */rotate(mModelMat, -radians(rotationVelocity), dvec3(0, 0.0, 1.0));
 
 	// Rotación en el círculo
 	//mModelMat = rotate(mModelMat, radians(rotationVelocity), dvec3(0, 0.0, 1.0));
+	mModelMat = translate(mModelMat, dvec3(0, -4.0, 0));
 }
 
 
