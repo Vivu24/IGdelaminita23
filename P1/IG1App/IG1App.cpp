@@ -135,6 +135,17 @@ IG1App::key(unsigned char key, int x, int y)
 		case 'o':
 			mCamera->set2D();
 			break;
+		case '1':
+			mScene->setScene(0);
+			mCamera->set2D();
+			break;
+		case '2':
+			mScene->setScene(1);
+			mCamera->set3D();
+			break;
+		case 'u':
+			mScene->update();
+			break;
 		default:
 			need_redisplay = false;
 			break;

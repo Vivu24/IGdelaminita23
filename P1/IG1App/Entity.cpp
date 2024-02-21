@@ -12,6 +12,9 @@ Abs_Entity::upload(dmat4 const& modelViewMat) const
 	glLoadMatrixd(value_ptr(modelViewMat)); // transfers modelView matrix to the GPU
 }
 
+void 
+Abs_Entity::update() {}
+
 void Abs_Entity::setColor(GLdouble r, GLdouble g, GLdouble b, GLdouble a) {
 	mColor.r = r;
 	mColor.g = g;
@@ -74,6 +77,7 @@ RGBTriangle::RGBTriangle(GLdouble radius)
 	: Abs_Entity()
 {
 	mMesh = Mesh::generateRGBTriangle(radius);
+	mModelMat = translate(dmat4(1), dvec3(200.0, .0, .0));
 	//setColor(r, g, b, a);
 }
 
@@ -91,7 +95,9 @@ RGBTriangle::render(dmat4 const& modelViewMat) const
 		//glPolygonMode(GL_BACK, GL_LINE);
 		glPolygonMode(GL_BACK, GL_POINT);
 		//glColor4d(mColor.r, mColor.g, mColor.b, mColor.a);
-		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		dmat4 aMat = modelViewMat * mModelMat; /** rotate(mModelMat, -radians(rotationVelocity), dvec3(0.0, 0.0, 1.0)) *
+			glm::translate(dmat4(1), dvec3(200.0, .0, .0)) * rotate(mModelMat, radians(rotationVelocity), 
+			dvec3(0.0, 0.0, 1.0));*/ // glm matrix multiplication ESTO DEBERIA SOBRAR SE HACE EN EL UPDATE
 		upload(aMat);
 		glLineWidth(2);
 		mMesh->render();
@@ -99,6 +105,16 @@ RGBTriangle::render(dmat4 const& modelViewMat) const
 		//glColor4d(.0, .0, .0, .0);
 	}
 }
+
+void 
+RGBTriangle::update() {
+	// Rotación sobre sí mismo
+	mModelMat = translate(mModelMat, dvec3(.0, .0, .0)) * rotate(dmat4(1), -radians(rotationVelocity), dvec3(0, 0.0, 1.0));
+
+	// Rotación en el círculo
+	//mModelMat = rotate(mModelMat, radians(rotationVelocity), dvec3(0, 0.0, 1.0));
+}
+
 
 RGBRectangle::RGBRectangle(GLdouble w, GLdouble h)
 	: Abs_Entity()
@@ -127,5 +143,65 @@ RGBRectangle::render(dmat4 const& modelViewMat) const
 		mMesh->render();
 		glLineWidth(1);
 		//glColor4d(.0, .0, .0, .0);
+	}
+}
+
+Cube::Cube(GLdouble l)
+	: Abs_Entity()
+{
+	mMesh = Mesh::generateCube(l);
+	setColor(.0, .0, .0, 1.0);
+}
+
+Cube::~Cube()
+{
+	delete mMesh;
+	mMesh = nullptr;
+};
+
+void
+Cube::render(dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr) {
+		glPolygonMode(GL_FRONT, GL_LINE);
+		//glPolygonMode(GL_BACK, GL_LINE);
+		glPolygonMode(GL_BACK, GL_POINT);
+		glColor4d(mColor.r, mColor.g, mColor.b, mColor.a);
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		upload(aMat);
+		glLineWidth(2);
+		mMesh->render();
+		glLineWidth(1);
+		glColor4d(.0, .0, .0, 1.0);
+	}
+}
+
+RGBCube::RGBCube(GLdouble l)
+	: Abs_Entity()
+{
+	mMesh = Mesh::generateRGBCubeTriangles(l);
+	//setColor(.0, .0, .0, 1.0);
+}
+
+RGBCube::~RGBCube()
+{
+	delete mMesh;
+	mMesh = nullptr;
+};
+
+void
+RGBCube::render(dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr) {
+		glPolygonMode(GL_FRONT, GL_FILL);
+		//glPolygonMode(GL_BACK, GL_LINE);
+		glPolygonMode(GL_BACK, GL_POINT);
+		//glColor4d(mColor.r, mColor.g, mColor.b, mColor.a);
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		upload(aMat);
+		glLineWidth(2);
+		mMesh->render();
+		glLineWidth(1);
+		//glColor4d(.0, .0, .0, 1.0);
 	}
 }

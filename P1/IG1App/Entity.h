@@ -17,6 +17,7 @@ public:
 	Abs_Entity& operator=(const Abs_Entity& e) = delete; // no copy assignment
 
 	virtual void render(glm::dmat4 const& modelViewMat) const = 0; // abstract method
+	virtual void update();
 
 	// modeling matrix
 	glm::dmat4 const& modelMat() const { return mModelMat; };
@@ -58,6 +59,9 @@ public:
 	explicit RGBTriangle(GLdouble radius);
 	~RGBTriangle();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
+	void update() override;
+private: 
+	GLdouble rotationVelocity = 1.0;
 };
 
 class RGBRectangle : public Abs_Entity
@@ -68,4 +72,20 @@ public:
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
 
+
+class Cube : public Abs_Entity 
+{
+public:
+	explicit Cube(GLdouble l);
+	~Cube();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+};
+
+class RGBCube : public Abs_Entity
+{
+public:
+	explicit RGBCube(GLdouble l);
+	~RGBCube();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+};
 #endif //_H_Entities_H_

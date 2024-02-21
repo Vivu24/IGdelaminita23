@@ -25,8 +25,13 @@ public:
 	void init();
 
 	void render(Camera const& cam) const;
+	void update();
+
+	void setScene(GLint id);
 
 protected:
+	GLint mId = 0;
+
 	void free();
 	void setGL();
 	void resetGL();

@@ -13,13 +13,8 @@ Scene::init()
 	// allocate memory and load resources
 	// Lights
 	// Textures
-
-	// Graphics objects (entities) of the scene
-	gObjects.push_back(new EjesRGB(400.0));
-	gObjects.push_back(new RGBRectangle(200.0, 50.0));
-	/*gObjects.push_back(new RGBTriangle(50.0));
-	gObjects.push_back(new RegularPolygon(100, 100.0, 1.0, 0.0, 1.0, 1.0));
-	gObjects.push_back(new RegularPolygon(3, 100.0, 0.0, 1.0, 1.0, 1.0));*/
+	
+	setScene(0);
 }
 void
 Scene::free()
@@ -29,6 +24,8 @@ Scene::free()
 		delete el;
 		el = nullptr;
 	}
+
+	gObjects.resize(0);
 }
 void
 Scene::setGL()
@@ -51,5 +48,28 @@ Scene::render(Camera const& cam) const
 
 	for (Abs_Entity* el : gObjects) {
 		el->render(cam.viewMat());
+	}
+}
+
+void 
+Scene::update() {
+	for (Abs_Entity* e : gObjects) {
+		e->update();
+	}
+}
+
+void 
+Scene::setScene(GLint id) {
+	free();
+
+	gObjects.push_back(new EjesRGB(400.0));
+
+	if (id == 0) {
+		gObjects.push_back(new RegularPolygon(100.0, 200.0, 1.0, 1.0, 1.0, 1.0));
+		gObjects.push_back(new RGBRectangle(400.0, 150.0));
+		gObjects.push_back(new RGBTriangle(50.0));
+	}
+	else if (id == 1) {
+		gObjects.push_back(new RGBCube(200.0));
 	}
 }
