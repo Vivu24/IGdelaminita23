@@ -39,6 +39,8 @@ protected:
 	void iniWinOpenGL();
 	void free();
 
+	void start();
+	void update();
 	void display() const;                      // the scene
 	void resize(int newWidth, int newHeight);  // the viewport (without changing the scale)
 	void key(unsigned char key, int x, int y); // keypress event
@@ -49,6 +51,7 @@ protected:
 	static void s_resize(int newWidth, int newHeight) { s_ig1app.resize(newWidth, newHeight); };
 	static void s_key(unsigned char key, int x, int y) { s_ig1app.key(key, x, y); };
 	static void s_specialKey(int key, int x, int y) { s_ig1app.specialKey(key, x, y); };
+	static void s_update() { s_ig1app.update(); };
 
 	// Viewport position and size
 	Viewport* mViewPort = nullptr;

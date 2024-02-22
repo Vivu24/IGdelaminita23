@@ -10,7 +10,7 @@ class Abs_Entity // abstract class
 {
 public:
 	Abs_Entity()
-	  : mModelMat(1.0), mColor(1) {}; // 4x4 identity matrix
+	  : mModelMat(1.0), moveMat(1.0), mColor(1) {}; // 4x4 identity matrix
 	virtual ~Abs_Entity() = default;
 
 	Abs_Entity(const Abs_Entity& e) = delete;            // no copy constructor
@@ -30,6 +30,7 @@ public:
 protected:
 	Mesh* mMesh = nullptr; // the mesh
 	glm::dmat4 mModelMat;  // modeling matrix
+	glm::dmat4 moveMat;
 
 	// transfers modelViewMat to the GPU
 	virtual void upload(glm::dmat4 const& mModelViewMat) const;
@@ -61,7 +62,7 @@ public:
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 	void update() override;
 private: 
-	GLdouble rotationVelocity = 1.0;
+	GLdouble rotationVelocity;
 };
 
 class RGBRectangle : public Abs_Entity

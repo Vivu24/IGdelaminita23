@@ -90,6 +90,17 @@ IG1App::free()
 	mViewPort = nullptr;
 }
 
+void 
+IG1App::start() {
+	glutIdleFunc(s_update);
+}
+
+void
+IG1App::update() {
+	mScene->update();
+	glutPostRedisplay();
+}
+
 void
 IG1App::display() const
 { // double buffering
@@ -145,6 +156,9 @@ IG1App::key(unsigned char key, int x, int y)
 			break;
 		case 'u':
 			mScene->update();
+			break;
+		case 'U':
+			start();
 			break;
 		default:
 			need_redisplay = false;
