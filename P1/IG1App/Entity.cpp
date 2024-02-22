@@ -77,7 +77,7 @@ RGBTriangle::RGBTriangle(GLdouble radius)
 	: Abs_Entity(), rotationVelocity(4.0)
 {
 	mMesh = Mesh::generateRGBTriangle(radius);
-	mModelMat = translate(dmat4(1), dvec3(200.0, .0, .0));
+	mModelMat = translate(mModelMat, dvec3(200.0, .0, 1.0)); // Set inicial a la derecha
 	//setColor(r, g, b, a);
 }
 
@@ -95,9 +95,7 @@ RGBTriangle::render(dmat4 const& modelViewMat) const
 		//glPolygonMode(GL_BACK, GL_LINE);
 		glPolygonMode(GL_BACK, GL_POINT);
 		//glColor4d(mColor.r, mColor.g, mColor.b, mColor.a);
-		dmat4 aMat = modelViewMat * rotate(dmat4(1), radians(-rotationVelocity), dvec3(0.0, 0.0, 1.0))
-			* translate(mModelMat, dvec3(.0, .0, 200.0)) 
-			* rotate(dmat4(1), radians(rotationVelocity * 2), dvec3(.0, .0, 1.0));
+		dmat4 aMat = modelViewMat * mModelMat;
 		upload(aMat);
 		glLineWidth(2);
 		mMesh->render();
@@ -108,17 +106,11 @@ RGBTriangle::render(dmat4 const& modelViewMat) const
 
 void 
 RGBTriangle::update() {
-	//// Rotación sobre sí mismo
-	//glm::dmat4 rot = 
+	mModelMat = rotate(dmat4(1), radians(rotationVelocity), dvec3(0.0, 0.0, 1.0))	  // Rotacion sobre el circulo
+			  * translate(dmat4(1), dvec3(200.0, .0, 1.0))							  // Traslacion alredeor del circulo
+		      * rotate(dmat4(1), radians(-rotationVelocity * 2), dvec3(.0, .0, 1.0)); // Rotacion sobre su propio eje
 
-	//glm::dmat4 initTrans = 
-
-	//// Rotación sobre el círculo
-	//glm::dmat4 rot2 = 
-
-	//moveMat = rot2 * initTrans * rot;
-
-	rotationVelocity -= .05;
+	rotationVelocity += .05;
 }
 
 
