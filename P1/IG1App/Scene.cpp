@@ -82,4 +82,8 @@ Scene::setScene(GLint id) {
 	else if (id == 3) {
 		gObjects.push_back(new BoxOutline(200.0));
 	}
+	else if (id == 4) {
+		gObjects.push_back(new Star3D(200.0, 6.0, 200.0));
+		gObjects.push_back(new Star3D(200.0, 6.0, -200.0));
+	}
 }

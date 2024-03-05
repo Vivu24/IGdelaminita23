@@ -108,4 +108,12 @@ public:
 	~BoxOutline();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
+
+class Star3D : public Abs_Entity
+{
+public:
+	explicit Star3D(GLdouble re, GLuint np, GLdouble h);
+	~Star3D();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+};
 #endif //_H_Entities_H_
