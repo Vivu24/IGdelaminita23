@@ -19,6 +19,8 @@ Mesh::render() const
 	if (vVertices.size() > 0) { // transfer data
 		// transfer the coordinates of the vertices
 		glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		glTexCoordPointer(2, GL_DOUBLE, 0, vTexCoords.data());
 		glVertexPointer(
 		  3, GL_DOUBLE, 0, vVertices.data()); // number of coordinates per vertex, type of
 		                                      // each coordinate, stride, pointer
@@ -103,16 +105,15 @@ Mesh* Mesh::generateRectangle(GLdouble w, GLdouble h) {
 	mesh->vVertices.reserve(mesh->mNumVertices);
 
 	mesh->vVertices.emplace_back(-w / 2, h / 2, 0.0);
+	mesh->vVertices.emplace_back(-w / 2, -h / 2, 0.0);
 	mesh->vVertices.emplace_back(w / 2, h / 2, 0.0);
 	mesh->vVertices.emplace_back(w / 2, -h / 2, 0.0);
-	mesh->vVertices.emplace_back(-w / 2, -h / 2, 0.0);
 
 	return mesh;
 }
 
 Mesh* Mesh::generateRGBRectangle(GLdouble w, GLdouble h) {
 	Mesh* mesh = generateRectangle(w, h);
-	mesh->mPrimitive = GL_TRIANGLE_FAN;
 	mesh->vColors.reserve(mesh->mNumVertices);
 
 	mesh->vColors.emplace_back(1.0, 0.0, 0.0, 1.0);
@@ -252,6 +253,64 @@ Mesh::generateRGBCubeTriangles(GLdouble l)
 	mesh->vColors.emplace_back(.0, 1.0, .0, 1.0);
 	mesh->vColors.emplace_back(.0, 1.0, .0, 1.0);
 	mesh->vColors.emplace_back(.0, 1.0, .0, 1.0);
+
+	return mesh;
+}
+
+Mesh* Mesh::generateRectangleTexCor(GLdouble w, GLdouble h, GLuint rw, GLuint rh)
+{
+	Mesh* mesh = generateRectangle(w, h);
+	mesh->vTexCoords.reserve(mesh->mNumVertices);
+
+	mesh->vTexCoords.emplace_back(rw, 0.0);
+	mesh->vTexCoords.emplace_back(0.0, 0.0);
+	mesh->vTexCoords.emplace_back(rw, rh);
+	mesh->vTexCoords.emplace_back(0.0, rh);
+
+	return mesh;
+}
+
+Mesh* Mesh::generateBoxOutline(GLdouble l)
+{
+	Mesh* mesh = new Mesh();
+	mesh->mPrimitive = GL_TRIANGLE_STRIP;
+	mesh->mNumVertices = 10;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+
+	GLdouble d = l * 0.5;
+
+	mesh->vVertices.emplace_back(-d, d, d);
+	mesh->vVertices.emplace_back(-d, -d, d);
+	mesh->vVertices.emplace_back(d, d, d);
+	mesh->vVertices.emplace_back(d, -d, d);
+
+	mesh->vVertices.emplace_back(d, d, -d);
+	mesh->vVertices.emplace_back(d, -d, -d);
+
+	mesh->vVertices.emplace_back(-d, d, -d);
+	mesh->vVertices.emplace_back(-d, -d, -d);
+
+	mesh->vVertices.emplace_back(-d, d, d);
+	mesh->vVertices.emplace_back(-d, -d, d);
+
+	return mesh;
+}
+
+Mesh* Mesh::generateBoxOutlineTexCOr(GLdouble l)
+{
+	Mesh* mesh = generateBoxOutline(l);
+
+	mesh->vTexCoords.reserve(mesh->mNumVertices);
+
+	for (int i = 0; i < 2; ++i) {
+		mesh->vTexCoords.emplace_back(0.0, 0.0);
+		mesh->vTexCoords.emplace_back(0.0, -1.0);
+		mesh->vTexCoords.emplace_back(1.0, 0.0);
+		mesh->vTexCoords.emplace_back(1.0, -1.0);
+	}
+
+	mesh->vTexCoords.emplace_back(0.0, 0.0);
+	mesh->vTexCoords.emplace_back(0.0, -1.0);
 
 	return mesh;
 }

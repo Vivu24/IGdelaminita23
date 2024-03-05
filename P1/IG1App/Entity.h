@@ -5,12 +5,13 @@
 #include <glm/glm.hpp>
 
 #include "Mesh.h"
+#include "Texture.h"
 
 class Abs_Entity // abstract class
 {
 public:
 	Abs_Entity()
-	  : mModelMat(1.0), mColor(1) {}; // 4x4 identity matrix
+	  : mModelMat(1.0), mColor(1), mTexture() {}; // 4x4 identity matrix
 	virtual ~Abs_Entity() = default;
 
 	Abs_Entity(const Abs_Entity& e) = delete;            // no copy constructor
@@ -26,6 +27,7 @@ public:
 	// Color setter and getter
 	glm::dvec4 getColor() { return mColor; }
 	void setColor(GLdouble r, GLdouble g, GLdouble b, GLdouble a);
+	void setTexture(std::string name);
 
 protected:
 	Mesh* mMesh = nullptr; // the mesh
@@ -35,6 +37,8 @@ protected:
 	virtual void upload(glm::dmat4 const& mModelViewMat) const;
 
 	glm::dvec4 mColor;
+	Texture* mTexture;
+	Texture* mTexture2;
 };
 
 class EjesRGB : public Abs_Entity
@@ -86,6 +90,22 @@ class RGBCube : public Abs_Entity
 public:
 	explicit RGBCube(GLdouble l);
 	~RGBCube();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+};
+
+class Ground : public Abs_Entity
+{
+public:
+	explicit Ground(GLdouble w, GLdouble h);
+	~Ground();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+};
+
+class BoxOutline : public Abs_Entity
+{
+public:
+	explicit BoxOutline(GLdouble l);
+	~BoxOutline();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
 #endif //_H_Entities_H_

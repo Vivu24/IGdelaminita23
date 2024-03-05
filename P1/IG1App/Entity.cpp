@@ -22,6 +22,18 @@ void Abs_Entity::setColor(GLdouble r, GLdouble g, GLdouble b, GLdouble a) {
 	mColor.a = a;
 }
 
+void 
+Abs_Entity::setTexture(std::string name) {
+	Texture *t = new Texture(),
+		*t2 = new Texture();
+	//t->setWrap(GL_REPEAT);
+	t->load(name, 255);
+	//t2->setWrap(GL_REPEAT);
+	t2->load("../bmps/papelE.bmp", 255);
+	mTexture = t;
+	mTexture2 = t2;
+}
+
 EjesRGB::EjesRGB(GLdouble l)
   : Abs_Entity()
 {
@@ -131,9 +143,9 @@ void
 RGBRectangle::render(dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr) {
-		glPolygonMode(GL_FRONT, GL_FILL);
+		glPolygonMode(GL_FRONT, GL_LINE);
 		//glPolygonMode(GL_BACK, GL_LINE);
-		glPolygonMode(GL_BACK, GL_LINE);
+		glPolygonMode(GL_BACK, GL_FILL);
 		//glColor4d(mColor.r, mColor.g, mColor.b, mColor.a);
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		upload(aMat);
@@ -199,6 +211,71 @@ RGBCube::render(dmat4 const& modelViewMat) const
 		upload(aMat);
 		glLineWidth(2);
 		mMesh->render();
+		glLineWidth(1);
+		//glColor4d(.0, .0, .0, 1.0);
+	}
+}
+
+Ground::Ground(GLdouble w, GLdouble h)
+	: Abs_Entity()
+{
+	mMesh = Mesh::generateRectangleTexCor(w, h, 4, 4);
+	mModelMat = rotate(dmat4(1), radians(-90.0), dvec3(1.0, 0.0, 0.0));
+
+	//setTexture("../bmps/baldosaC.bmp");
+}
+
+Ground::~Ground()
+{
+	delete mMesh;
+	mMesh = nullptr;
+};
+
+void
+Ground::render(dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		mTexture->bind(GL_REPLACE);
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		upload(aMat);
+		glLineWidth(2);
+		mMesh->render();
+		mTexture->unbind();
+		glLineWidth(1);
+		//glColor4d(.0, .0, .0, 1.0);
+	}
+}
+
+BoxOutline::BoxOutline(GLdouble l)
+	: Abs_Entity()
+{
+	mMesh = Mesh::generateBoxOutlineTexCOr(l);
+	setTexture("../bmps/container.bmp");
+}
+
+BoxOutline::~BoxOutline()
+{
+	delete mMesh;
+	mMesh = nullptr;
+};
+
+void
+BoxOutline::render(dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr) {
+		mTexture->bind(GL_REPLACE);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glCullFace(GL_BACK);
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		upload(aMat);
+		glLineWidth(2);
+		mMesh->render();
+		mTexture->unbind();
+		mTexture2->bind(GL_REPLACE);
+		glCullFace(GL_FRONT);
+		mMesh->render();
+		mTexture2->unbind();
 		glLineWidth(1);
 		//glColor4d(.0, .0, .0, 1.0);
 	}
