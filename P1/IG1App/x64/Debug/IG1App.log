@@ -1,4 +1,12 @@
-﻿  Mesh.cpp
-C:\hlocal\IGdelaminita23\P1\IG1App\Mesh.cpp(81,20): warning C4018: '<': no coinciden signed/unsigned
-C:\hlocal\IGdelaminita23\P1\IG1App\Mesh.cpp(330,23): warning C4018: '<': no coinciden signed/unsigned
+﻿  Entity.cpp
+  IG1App.cpp
+  Scene.cpp
+C:\hlocal\IGdelaminita23\P1\IG1App\Scene.cpp(34,25): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+C:\hlocal\IGdelaminita23\P1\IG1App\Scene.cpp(34,20): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+C:\hlocal\IGdelaminita23\P1\IG1App\Scene.cpp(34,15): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+C:\hlocal\IGdelaminita23\P1\IG1App\Scene.cpp(71,41): warning C4244: 'argumento': conversión de 'double' a 'GLuint'; posible pérdida de datos
+C:\hlocal\IGdelaminita23\P1\IG1App\Scene.cpp(85,40): warning C4244: 'argumento': conversión de 'double' a 'GLuint'; posible pérdida de datos
+  Texture.cpp
+  main.cpp
+  Generando código...
   IG1App.vcxproj -> C:\hlocal\IGdelaminita23\P1\bin\IG1AppDebug.exe

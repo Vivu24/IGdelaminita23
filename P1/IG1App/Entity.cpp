@@ -27,7 +27,7 @@ Abs_Entity::setTexture(std::string name) {
 	Texture *t = new Texture(),
 		*t2 = new Texture();
 	//t->setWrap(GL_REPEAT);
-	t->load(name, 255);
+	t->load(name, 128);
 	//t2->setWrap(GL_REPEAT);
 	//t2->load("../bmps/papelE.bmp", 255);
 	mTexture = t;
@@ -283,7 +283,7 @@ BoxOutline::render(dmat4 const& modelViewMat) const
 	}
 }
 
-Star3D::Star3D(GLdouble re, GLuint np, GLdouble h)
+Star3D::Star3D(GLdouble re, GLuint np, GLdouble h) : rotationVelocity(4.0), Abs_Entity()
 {
 	mMesh = Mesh::generateStar3DTexCor(re, np, h);
 
@@ -313,5 +313,44 @@ Star3D::render(dmat4 const& modelViewMat) const
 		mMesh->render();
 		mTexture->unbind();
 		glLineWidth(1);
+	}
+}
+
+void
+Star3D::update() {
+	mModelMat = rotate(dmat4(1), radians(rotationVelocity), dvec3(0.0, 1.0, .0))
+		* rotate(dmat4(1), radians(-rotationVelocity), dvec3(.0, .0, 1.0)); 
+
+	rotationVelocity += .05;
+}
+
+GlassParapet::GlassParapet()
+	: Abs_Entity()
+{
+	mMesh = Mesh::generateBoxOutlineTexCOr(200.0);
+	setTexture("../bmps/windowV.bmp");
+}
+
+GlassParapet::~GlassParapet()
+{
+	delete mMesh;
+	mMesh = nullptr;
+};
+
+void
+GlassParapet::render(dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr) {
+		glEnable(GL_BLEND);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		mTexture->bind(GL_REPLACE);
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		upload(aMat);
+		glLineWidth(2);
+		mMesh->render();
+		mTexture->unbind();
+		glLineWidth(1);
+		glDisable(GL_BLEND);
+		//glColor4d(.0, .0, .0, 1.0);
 	}
 }

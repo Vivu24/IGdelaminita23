@@ -115,5 +115,16 @@ public:
 	explicit Star3D(GLdouble re, GLuint np, GLdouble h);
 	~Star3D();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
+	void update() override;
+private:
+	GLdouble rotationVelocity;
+};
+
+class GlassParapet : public Abs_Entity
+{
+public:
+	explicit GlassParapet();
+	~GlassParapet();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
 #endif //_H_Entities_H_
