@@ -29,9 +29,9 @@ Abs_Entity::setTexture(std::string name) {
 	//t->setWrap(GL_REPEAT);
 	t->load(name, 255);
 	//t2->setWrap(GL_REPEAT);
-	t2->load("../bmps/papelE.bmp", 255);
+	//t2->load("../bmps/papelE.bmp", 255);
 	mTexture = t;
-	mTexture2 = t2;
+	//mTexture2 = t2;
 }
 
 EjesRGB::EjesRGB(GLdouble l)
@@ -251,7 +251,7 @@ BoxOutline::BoxOutline(GLdouble l)
 	: Abs_Entity()
 {
 	mMesh = Mesh::generateBoxOutlineTexCOr(l);
-	setTexture("../bmps/container.bmp");
+	//setTexture("../bmps/container.bmp");
 }
 
 BoxOutline::~BoxOutline()
@@ -264,6 +264,7 @@ void
 BoxOutline::render(dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr) {
+		glEnable(GL_CULL_FACE);
 		mTexture->bind(GL_REPLACE);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glCullFace(GL_BACK);
@@ -277,13 +278,16 @@ BoxOutline::render(dmat4 const& modelViewMat) const
 		mMesh->render();
 		mTexture2->unbind();
 		glLineWidth(1);
+		glDisable(GL_CULL_FACE);
 		//glColor4d(.0, .0, .0, 1.0);
 	}
 }
 
 Star3D::Star3D(GLdouble re, GLuint np, GLdouble h)
 {
-	mMesh = Mesh::generateStar3D(re, np, h);
+	mMesh = Mesh::generateStar3DTexCor(re, np, h);
+
+	setTexture("../bmps/baldosaP.bmp");
 }
 
 Star3D::~Star3D()
@@ -296,11 +300,18 @@ void
 Star3D::render(dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr) {
+		mTexture->bind(GL_REPLACE);
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		upload(aMat);
 		glLineWidth(2);
-		glPolygonMode(GL_FRONT, GL_LINE);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		mMesh->render();
+		dmat4 rMat = mModelMat;
+		rMat *= rotate(dmat4(1), radians(180.0), dvec3(0.0, 1.0, 0.0));
+		aMat = modelViewMat * rMat; // glm matrix multiplication
+		upload(aMat);
+		mMesh->render();
+		mTexture->unbind();
 		glLineWidth(1);
 	}
 }

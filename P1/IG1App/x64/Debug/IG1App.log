@@ -1,2 +1,4 @@
-﻿  Entity.cpp
-  IG1App.vcxproj -> C:\Users\Javi\Desktop\IGdelaminita23\P1\bin\IG1AppDebug.exe
+﻿  Mesh.cpp
+C:\hlocal\IGdelaminita23\P1\IG1App\Mesh.cpp(81,20): warning C4018: '<': no coinciden signed/unsigned
+C:\hlocal\IGdelaminita23\P1\IG1App\Mesh.cpp(330,23): warning C4018: '<': no coinciden signed/unsigned
+  IG1App.vcxproj -> C:\hlocal\IGdelaminita23\P1\bin\IG1AppDebug.exe

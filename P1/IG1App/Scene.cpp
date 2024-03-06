@@ -34,7 +34,7 @@ Scene::setGL()
 	glClearColor(0.6, 0.7, 0.8, 1.0); // background color (alpha=1 -> opaque)
 	glEnable(GL_DEPTH_TEST);          // enable Depth test
 	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 }
 void
 Scene::resetGL()
@@ -42,7 +42,7 @@ Scene::resetGL()
 	glClearColor(.0, .0, .0, .0); // background color (alpha=1 -> opaque)
 	glDisable(GL_DEPTH_TEST);     // disable Depth test
 	glDisable(GL_TEXTURE_2D);
-	glDisable(GL_CULL_FACE);
+	//glDisable(GL_CULL_FACE);
 }
 
 void
@@ -83,7 +83,6 @@ Scene::setScene(GLint id) {
 		gObjects.push_back(new BoxOutline(200.0));
 	}
 	else if (id == 4) {
-		gObjects.push_back(new Star3D(200.0, 6.0, 200.0));
-		gObjects.push_back(new Star3D(200.0, 6.0, -200.0));
+		gObjects.push_back(new Star3D(200.0, 8.0, 200.0));
 	}
 }
