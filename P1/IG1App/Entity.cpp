@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "IG1App.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -23,15 +24,13 @@ void Abs_Entity::setColor(GLdouble r, GLdouble g, GLdouble b, GLdouble a) {
 }
 
 void 
-Abs_Entity::setTexture(std::string name) {
-	Texture *t = new Texture(),
-		*t2 = new Texture();
-	//t->setWrap(GL_REPEAT);
-	t->load(name, 128);
-	//t2->setWrap(GL_REPEAT);
-	//t2->load("../bmps/papelE.bmp", 255);
+Abs_Entity::setTexture(Texture* t) {
 	mTexture = t;
-	//mTexture2 = t2;
+}
+
+void 
+Abs_Entity::setSecondTexture(Texture* t) {
+	mTexture2 = t;
 }
 
 EjesRGB::EjesRGB(GLdouble l)
@@ -212,7 +211,6 @@ RGBCube::render(dmat4 const& modelViewMat) const
 		glLineWidth(2);
 		mMesh->render();
 		glLineWidth(1);
-		//glColor4d(.0, .0, .0, 1.0);
 	}
 }
 
@@ -221,8 +219,6 @@ Ground::Ground(GLdouble w, GLdouble h)
 {
 	mMesh = Mesh::generateRectangleTexCor(w, h, 4, 4);
 	mModelMat = rotate(dmat4(1), radians(-90.0), dvec3(1.0, 0.0, 0.0));
-
-	//setTexture("../bmps/baldosaC.bmp");
 }
 
 Ground::~Ground()
@@ -236,14 +232,15 @@ Ground::render(dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 		mTexture->bind(GL_REPLACE);
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		upload(aMat);
 		glLineWidth(2);
 		mMesh->render();
 		mTexture->unbind();
+
 		glLineWidth(1);
-		//glColor4d(.0, .0, .0, 1.0);
 	}
 }
 
@@ -251,7 +248,6 @@ BoxOutline::BoxOutline(GLdouble l)
 	: Abs_Entity()
 {
 	mMesh = Mesh::generateBoxOutlineTexCOr(l);
-	//setTexture("../bmps/container.bmp");
 }
 
 BoxOutline::~BoxOutline()
@@ -264,30 +260,30 @@ void
 BoxOutline::render(dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr) {
-		glEnable(GL_CULL_FACE);
-		mTexture->bind(GL_REPLACE);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glEnable(GL_CULL_FACE);
+
+		mTexture->bind(GL_REPLACE);
 		glCullFace(GL_BACK);
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		upload(aMat);
 		glLineWidth(2);
 		mMesh->render();
 		mTexture->unbind();
+
 		mTexture2->bind(GL_REPLACE);
 		glCullFace(GL_FRONT);
 		mMesh->render();
 		mTexture2->unbind();
+
 		glLineWidth(1);
 		glDisable(GL_CULL_FACE);
-		//glColor4d(.0, .0, .0, 1.0);
 	}
 }
 
 Star3D::Star3D(GLdouble re, GLuint np, GLdouble h) : rotationVelocity(4.0), Abs_Entity()
 {
 	mMesh = Mesh::generateStar3DTexCor(re, np, h);
-
-	setTexture("../bmps/baldosaP.bmp");
 }
 
 Star3D::~Star3D()
@@ -300,17 +296,20 @@ void
 Star3D::render(dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 		mTexture->bind(GL_REPLACE);
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		upload(aMat);
 		glLineWidth(2);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		mMesh->render();
+
 		dmat4 rMat = mModelMat;
 		rMat *= rotate(dmat4(1), radians(180.0), dvec3(0.0, 1.0, 0.0));
 		aMat = modelViewMat * rMat; // glm matrix multiplication
 		upload(aMat);
 		mMesh->render();
+
 		mTexture->unbind();
 		glLineWidth(1);
 	}
@@ -328,7 +327,6 @@ GlassParapet::GlassParapet()
 	: Abs_Entity()
 {
 	mMesh = Mesh::generateBoxOutlineTexCOr(200.0);
-	setTexture("../bmps/windowV.bmp");
 }
 
 GlassParapet::~GlassParapet()
@@ -341,16 +339,15 @@ void
 GlassParapet::render(dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr) {
-		glEnable(GL_BLEND);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 		mTexture->bind(GL_REPLACE);
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		upload(aMat);
 		glLineWidth(2);
 		mMesh->render();
 		mTexture->unbind();
+
 		glLineWidth(1);
-		glDisable(GL_BLEND);
-		//glColor4d(.0, .0, .0, 1.0);
 	}
 }

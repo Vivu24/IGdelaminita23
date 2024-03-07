@@ -24,7 +24,12 @@ Scene::free()
 		delete el;
 		el = nullptr;
 	}
+	for (Texture* t : gTextures) {
+		delete t;
+		t = nullptr;
+	}
 
+	gTextures.resize(0);
 	gObjects.resize(0);
 }
 void
@@ -34,6 +39,8 @@ Scene::setGL()
 	glClearColor(0.6, 0.7, 0.8, 1.0); // background color (alpha=1 -> opaque)
 	glEnable(GL_DEPTH_TEST);          // enable Depth test
 	glEnable(GL_TEXTURE_2D);
+	glEnable(GLUT_MULTISAMPLE);
+	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 void
@@ -42,6 +49,8 @@ Scene::resetGL()
 	glClearColor(.0, .0, .0, .0); // background color (alpha=1 -> opaque)
 	glDisable(GL_DEPTH_TEST);     // disable Depth test
 	glDisable(GL_TEXTURE_2D);
+	glDisable(GLUT_MULTISAMPLE);
+	glDisable(GL_BLEND);
 }
 
 void
@@ -76,15 +85,39 @@ Scene::setScene(GLint id) {
 		gObjects.push_back(new RGBCube(200.0));
 	}
 	else if (id == 2) {
-		gObjects.push_back(new Ground(100, 100));
+		Texture* t = new Texture();
+		t->load("../bmps/baldosaC.bmp", 255);
+		gTextures.push_back(t);
+		Abs_Entity* e = new Ground(100, 100);
+		e->setTexture(t);
+		gObjects.push_back(e);
 	}
 	else if (id == 3) {
-		gObjects.push_back(new BoxOutline(200.0));
+		Texture* t = new Texture();
+		t->load("../bmps/container.bmp", 255);
+		gTextures.push_back(t);
+		Texture* t2 = new Texture();
+		t2->load("../bmps/papelE.bmp", 255);
+		gTextures.push_back(t2);
+		Abs_Entity* e = new BoxOutline(200.0);
+		e->setTexture(t);
+		e->setSecondTexture(t2);
+		gObjects.push_back(e);
 	}
 	else if (id == 4) {
-		gObjects.push_back(new Star3D(200.0, 8.0, 200.0));
+		Texture* t = new Texture();
+		t->load("../bmps/baldosaP.bmp");
+		gTextures.push_back(t);
+		Abs_Entity* e = new Star3D(200.0, 8.0, 200.0);
+		e->setTexture(t);
+		gObjects.push_back(e);
 	}
 	else if (id == 5) {
-		gObjects.push_back(new GlassParapet());
+		Texture* t = new Texture();
+		t->load("../bmps/windowV.bmp", 128);
+		gTextures.push_back(t);
+		Abs_Entity* e = new GlassParapet();
+		e->setTexture(t);
+		gObjects.push_back(e);
 	}
 }

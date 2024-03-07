@@ -11,7 +11,7 @@ class Abs_Entity // abstract class
 {
 public:
 	Abs_Entity()
-	  : mModelMat(1.0), mColor(1), mTexture() {}; // 4x4 identity matrix
+	  : mModelMat(1.0), mColor(1), mTexture(), mTexture2() {}; // 4x4 identity matrix
 	virtual ~Abs_Entity() = default;
 
 	Abs_Entity(const Abs_Entity& e) = delete;            // no copy constructor
@@ -27,7 +27,8 @@ public:
 	// Color setter and getter
 	glm::dvec4 getColor() { return mColor; }
 	void setColor(GLdouble r, GLdouble g, GLdouble b, GLdouble a);
-	void setTexture(std::string name);
+	void setTexture(Texture* t);
+	void setSecondTexture(Texture* t);
 
 protected:
 	Mesh* mMesh = nullptr; // the mesh

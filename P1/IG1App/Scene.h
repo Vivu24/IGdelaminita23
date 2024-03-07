@@ -36,6 +36,7 @@ protected:
 	void setGL();
 	void resetGL();
 
+	std::vector<Texture*> gTextures;
 	std::vector<Abs_Entity*> gObjects; // Entities (graphic objects) of the scene
 };
 
