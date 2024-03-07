@@ -128,4 +128,13 @@ public:
 	~GlassParapet();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
+
+class Photo : public Abs_Entity
+{
+public:
+	explicit Photo();
+	~Photo();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+	void update() override;
+};
 #endif //_H_Entities_H_

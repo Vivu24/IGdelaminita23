@@ -1,2 +1,4 @@
 ﻿  Entity.cpp
-  IG1App.vcxproj -> C:\Users\Jaime Vicente Arroyo\Desktop\c0s1t4s\Universidad\2º\IG1\IGdelaminita23\P1\bin\IG1AppDebug.exe
+C:\Users\Javi\Desktop\IGdelaminita23\P1\IG1App\Entity.cpp(412,35): warning C4244: 'argumento': conversión de 'double' a 'GLsizei'; posible pérdida de datos
+C:\Users\Javi\Desktop\IGdelaminita23\P1\IG1App\Entity.cpp(412,28): warning C4244: 'argumento': conversión de 'double' a 'GLsizei'; posible pérdida de datos
+  IG1App.vcxproj -> C:\Users\Javi\Desktop\IGdelaminita23\P1\bin\IG1AppDebug.exe

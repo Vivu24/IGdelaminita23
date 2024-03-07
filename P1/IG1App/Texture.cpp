@@ -65,5 +65,18 @@ void Texture::setWrap(GLuint wp) // GL_REPEAT, GL_CLAMP
 
 void Texture::loadColorBuffer(GLsizei width, GLsizei height, GLuint buffer)
 {
-	
+	if (mId == 0) init();
+
+	mWidth = width;
+	mHeight = height;
+
+	glReadBuffer(buffer);
+
+	bind(GL_MODULATE);
+
+	glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+		0, 0, width, height, 0);
+
+	glReadBuffer(GL_BACK);
+	unbind();
 }
