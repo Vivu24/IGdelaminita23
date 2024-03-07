@@ -362,6 +362,7 @@ GlassParapet::render(dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glAlphaFunc(GL_GREATER, 0);
 		mTexture->bind(GL_REPLACE);
 		glLineWidth(2);
 

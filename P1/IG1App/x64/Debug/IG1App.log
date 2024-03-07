@@ -1,12 +1,4 @@
-﻿  Scene.cpp
-C:\hlocal\IGdelaminita23\P1\IG1App\Scene.cpp(39,25): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\hlocal\IGdelaminita23\P1\IG1App\Scene.cpp(39,20): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\hlocal\IGdelaminita23\P1\IG1App\Scene.cpp(39,15): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\hlocal\IGdelaminita23\P1\IG1App\Scene.cpp(80,41): warning C4244: 'argumento': conversión de 'double' a 'GLuint'; posible pérdida de datos
-C:\hlocal\IGdelaminita23\P1\IG1App\Scene.cpp(114,37): warning C4244: 'argumento': conversión de 'double' a 'GLuint'; posible pérdida de datos
-C:\hlocal\IGdelaminita23\P1\IG1App\Scene.cpp(136,30): warning C4244: 'argumento': conversión de 'double' a 'GLsizei'; posible pérdida de datos
-C:\hlocal\IGdelaminita23\P1\IG1App\Scene.cpp(136,23): warning C4244: 'argumento': conversión de 'double' a 'GLsizei'; posible pérdida de datos
-C:\hlocal\IGdelaminita23\P1\IG1App\Scene.cpp(152,30): warning C4244: 'argumento': conversión de 'double' a 'GLsizei'; posible pérdida de datos
-C:\hlocal\IGdelaminita23\P1\IG1App\Scene.cpp(152,23): warning C4244: 'argumento': conversión de 'double' a 'GLsizei'; posible pérdida de datos
-C:\hlocal\IGdelaminita23\P1\IG1App\Scene.cpp(170,36): warning C4244: 'argumento': conversión de 'double' a 'GLuint'; posible pérdida de datos
+﻿  Entity.cpp
+C:\hlocal\IGdelaminita23\P1\IG1App\Entity.cpp(415,35): warning C4244: 'argumento': conversión de 'double' a 'GLsizei'; posible pérdida de datos
+C:\hlocal\IGdelaminita23\P1\IG1App\Entity.cpp(415,28): warning C4244: 'argumento': conversión de 'double' a 'GLsizei'; posible pérdida de datos
   IG1App.vcxproj -> C:\hlocal\IGdelaminita23\P1\bin\IG1AppDebug.exe
