@@ -95,6 +95,11 @@ IG1App::start() {
 	glutIdleFunc(s_update);
 }
 
+void 
+IG1App::stop() {
+	glutIdleFunc(NULL);
+}
+
 void
 IG1App::update() {
 	mScene->update();
@@ -147,34 +152,42 @@ IG1App::key(unsigned char key, int x, int y)
 			mCamera->set2D();
 			break;
 		case '1':
+			stop();
 			mScene->setScene(0);
 			mCamera->set2D();
 			break;
 		case '2':
+			stop();
 			mScene->setScene(1);
 			mCamera->set3D();
 			break;
-		case '3':
+		case '3': // APARTADOS 18, 19 y 20
+			stop();
 			mScene->setScene(2);
 			mCamera->set3D();
 			break;
-		case '4':
+		case '4': // APARTADOS 21, 22, 23 y 24
+			stop();
 			mScene->setScene(3);
 			mCamera->set3D();
 			break;
-		case '5':
+		case '5': // APARTADOS 25, 26, 27 y 28
+			stop();
 			mScene->setScene(4);
 			mCamera->set3D();
 			break;
-		case '6':
+		case '6': // APARTADO 31
+			stop();
 			mScene->setScene(5);
 			mCamera->set3D();
 			break;
-		case '7':
+		case '7': // APARTADOS 35 y 36
+			stop();
 			mScene->setScene(6);
 			mCamera->set3D();
 			break;
-		case '8':
+		case '8': // APARTADO 38
+			stop();
 			mScene->setScene(7);
 			mCamera->set3D();
 			break;

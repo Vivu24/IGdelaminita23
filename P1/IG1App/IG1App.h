@@ -40,6 +40,7 @@ protected:
 	void free();
 
 	void start();
+	void stop();
 	void update();
 	void display() const;                      // the scene
 	void resize(int newWidth, int newHeight);  // the viewport (without changing the scale)

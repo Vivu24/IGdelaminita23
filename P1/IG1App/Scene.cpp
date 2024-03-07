@@ -89,8 +89,9 @@ Scene::setScene(GLint id) {
 		t->load("../bmps/baldosaC.bmp", 255);
 		t->setWrap(GL_REPEAT);
 		gTextures.push_back(t);
-		Abs_Entity* e = new Ground(100, 100);
+		Abs_Entity* e = new Ground(300, 300);
 		e->setTexture(t);
+
 		gObjects.push_back(e);
 	}
 	else if (id == 3) {
@@ -100,17 +101,19 @@ Scene::setScene(GLint id) {
 		Texture* t2 = new Texture();
 		t2->load("../bmps/papelE.bmp", 255);
 		gTextures.push_back(t2);
-		Abs_Entity* e = new BoxOutline(200.0);
+		Abs_Entity* e = new BoxOutline(200.0, dvec3(.0, .0, .0));
 		e->setTexture(t);
 		e->setSecondTexture(t2);
+
 		gObjects.push_back(e);
 	}
 	else if (id == 4) {
 		Texture* t = new Texture();
 		t->load("../bmps/baldosaP.bmp");
 		gTextures.push_back(t);
-		Abs_Entity* e = new Star3D(200.0, 8.0, 200.0);
+		Abs_Entity* e = new Star3D(200.0, 8.0, 200.0, dvec3(.0, .0, .0));
 		e->setTexture(t);
+
 		gObjects.push_back(e);
 	}
 	else if (id == 5) {
@@ -119,6 +122,7 @@ Scene::setScene(GLint id) {
 		gTextures.push_back(t);
 		Abs_Entity* e = new GlassParapet();
 		e->setTexture(t);
+
 		gObjects.push_back(e);
 	}
 	else if (id == 6) {
@@ -138,34 +142,39 @@ Scene::setScene(GLint id) {
 		gObjects.push_back(p);
 	}
 	else if (id == 7) {
+		// GROUND
 		Texture* t = new Texture();
 		t->load("../bmps/baldosaC.bmp", 255);
 		gTextures.push_back(t);
 		Abs_Entity* e = new Ground(300.0, 300.0);
 		e->setTexture(t);
 
+		// PHOTO
 		Texture* t2 = new Texture();
 		t2->loadColorBuffer(800.0, 600.0);
 		gTextures.push_back(t2);
 		Abs_Entity* p = new Photo();
 		p->setTexture(t2);
 
+		// BOX
 		Texture* t3 = new Texture();
 		t3->load("../bmps/container.bmp", 255);
 		gTextures.push_back(t3);
 		Texture* t4 = new Texture();
 		t4->load("../bmps/papelE.bmp", 255);
 		gTextures.push_back(t4);
-		Abs_Entity* b = new BoxOutline(100.0);
+		Abs_Entity* b = new BoxOutline(50.0, dvec3(-112.5, 25.0, -112.5));
 		b->setTexture(t3);
 		b->setSecondTexture(t4);
 
+		// STAR
 		Texture* t5 = new Texture();
 		t5->load("../bmps/baldosaP.bmp");
 		gTextures.push_back(t5);
-		Abs_Entity* s = new Star3D(100.0, 8.0, 100.0);
+		Abs_Entity* s = new Star3D(25.0, 8.0, 25.0, dvec3(-112.5, 70.0, -112.5));
 		s->setTexture(t5);
 
+		// GLASS
 		Texture* t6 = new Texture();
 		t6->load("../bmps/windowV.bmp", 128);
 		gTextures.push_back(t6);

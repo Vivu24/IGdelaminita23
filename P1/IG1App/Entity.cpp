@@ -252,11 +252,12 @@ Ground::render(dmat4 const& modelViewMat) const
 	}
 }
 
-BoxOutline::BoxOutline(GLdouble l)
+BoxOutline::BoxOutline(GLdouble l, dvec3 p)
 	: Abs_Entity()
 {
+	pos = p;
 	mMesh = Mesh::generateBoxOutlineTexCOr(l);
-	mModelMat = translate(dmat4(1), dvec3(-150.0, 0.0, -150.0));
+	mModelMat = translate(dmat4(1), pos);
 }
 
 BoxOutline::~BoxOutline()
@@ -294,10 +295,11 @@ BoxOutline::render(dmat4 const& modelViewMat) const
 	}
 }
 
-Star3D::Star3D(GLdouble re, GLuint np, GLdouble h) : rotationVelocity(4.0), Abs_Entity()
+Star3D::Star3D(GLdouble re, GLuint np, GLdouble h, dvec3 p) : rotationVelocity(4.0), Abs_Entity()
 {
+	pos = p;
 	mMesh = Mesh::generateStar3DTexCor(re, np, h);
-	mModelMat = translate(dmat4(1), dvec3(-150.0, 150.0, -150.0));
+	mModelMat = translate(dmat4(1), pos);
 }
 
 Star3D::~Star3D()
@@ -334,7 +336,7 @@ Star3D::render(dmat4 const& modelViewMat) const
 
 void
 Star3D::update() {
-	mModelMat = translate(dmat4(1), dvec3(-150.0, 150.0, -150.0)) 
+	mModelMat = translate(dmat4(1), pos)
 		* rotate(dmat4(1), radians(rotationVelocity), dvec3(0.0, 1.0, .0))
 		* rotate(dmat4(1), radians(-rotationVelocity), dvec3(.0, .0, 1.0)); 
 

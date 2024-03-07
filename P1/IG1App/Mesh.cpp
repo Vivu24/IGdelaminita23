@@ -130,65 +130,67 @@ Mesh* Mesh::generateCube(GLdouble l) {
 	mesh->mNumVertices = 36;
 	mesh->vVertices.reserve(mesh->mNumVertices);
 
+	GLdouble d = l * 0.5;
+
 	// 1
-	mesh->vVertices.emplace_back(l / 2, l / 2, l / 2);
-	mesh->vVertices.emplace_back(-l / 2, l / 2, -l / 2);
-	mesh->vVertices.emplace_back(-l / 2, l / 2, l / 2);
+	mesh->vVertices.emplace_back(d, d, d);
+	mesh->vVertices.emplace_back(-d, d, -d);
+	mesh->vVertices.emplace_back(-d, d, d);
 
 	// 2
-	mesh->vVertices.emplace_back(l / 2, l / 2, l / 2);
-	mesh->vVertices.emplace_back(l / 2, l / 2, -l / 2);
-	mesh->vVertices.emplace_back(-l / 2, l / 2, -l / 2);
+	mesh->vVertices.emplace_back(d, d, d);
+	mesh->vVertices.emplace_back(d, d, -d);
+	mesh->vVertices.emplace_back(-d, d, -d);
 
 	// 3
-	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
-	mesh->vVertices.emplace_back(l / 2, l / 2, l / 2);
-	mesh->vVertices.emplace_back(-l / 2, l / 2, l / 2);
+	mesh->vVertices.emplace_back(-d, -d, d);
+	mesh->vVertices.emplace_back(d, d, d);
+	mesh->vVertices.emplace_back(-d, d, d);
 
 	// 4
-	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
-	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
-	mesh->vVertices.emplace_back(l / 2, l / 2, l / 2);
+	mesh->vVertices.emplace_back(-d, -d, d);
+	mesh->vVertices.emplace_back(d, -d, d);
+	mesh->vVertices.emplace_back(d, d, d);
 
 	// 5
-	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
-	mesh->vVertices.emplace_back(l / 2, -l / 2, -l / 2);
-	mesh->vVertices.emplace_back(l / 2, l / 2, l / 2);
+	mesh->vVertices.emplace_back(d, -d, d);
+	mesh->vVertices.emplace_back(d, -d, -d);
+	mesh->vVertices.emplace_back(d, d, d);
 
 	// 6
-	mesh->vVertices.emplace_back(l / 2, -l / 2, -l / 2);
-	mesh->vVertices.emplace_back(l / 2, l / 2, -l / 2);
-	mesh->vVertices.emplace_back(l / 2, l / 2, l / 2);
+	mesh->vVertices.emplace_back(d, -d, -d);
+	mesh->vVertices.emplace_back(d, d, -d);
+	mesh->vVertices.emplace_back(d, d, d);
 
 	// 7
-	mesh->vVertices.emplace_back(l / 2, -l / 2, -l / 2);
-	mesh->vVertices.emplace_back(-l / 2, l / 2, -l / 2);
-	mesh->vVertices.emplace_back(l / 2, l / 2, -l / 2);
+	mesh->vVertices.emplace_back(d, -d, -d);
+	mesh->vVertices.emplace_back(-d, d, -d);
+	mesh->vVertices.emplace_back(d, d, -d);
 
 	// 8
-	mesh->vVertices.emplace_back(l / 2, -l / 2, -l / 2);
-	mesh->vVertices.emplace_back(-l / 2, -l / 2, -l / 2);
-	mesh->vVertices.emplace_back(-l / 2, l / 2, -l / 2);
+	mesh->vVertices.emplace_back(d, -d, -d);
+	mesh->vVertices.emplace_back(-d, -d, -d);
+	mesh->vVertices.emplace_back(-d, d, -d);
 
 	// 9
-	mesh->vVertices.emplace_back(l / 2, -l / 2, -l / 2);
-	mesh->vVertices.emplace_back(l / 2, -l / 2, l / 2);
-	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
+	mesh->vVertices.emplace_back(d, -d, -d);
+	mesh->vVertices.emplace_back(d, -d, d);
+	mesh->vVertices.emplace_back(-d, -d, d);
 
 	// 10
-	mesh->vVertices.emplace_back(l / 2, -l / 2, -l / 2);
-	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
-	mesh->vVertices.emplace_back(-l / 2, -l / 2, -l / 2);
+	mesh->vVertices.emplace_back(d, -d, -d);
+	mesh->vVertices.emplace_back(-d, -d, d);
+	mesh->vVertices.emplace_back(-d, -d, -d);
 
 	// 11
-	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
-	mesh->vVertices.emplace_back(-l / 2, l / 2, -l / 2);
-	mesh->vVertices.emplace_back(-l / 2, -l / 2, -l / 2);
+	mesh->vVertices.emplace_back(-d, -d, d);
+	mesh->vVertices.emplace_back(-d, d, -d);
+	mesh->vVertices.emplace_back(-d, -d, -d);
 
 	// 12
-	mesh->vVertices.emplace_back(-l / 2, -l / 2, l / 2);
-	mesh->vVertices.emplace_back(-l / 2, l / 2, l / 2);
-	mesh->vVertices.emplace_back(-l / 2, l / 2, -l / 2);
+	mesh->vVertices.emplace_back(-d, -d, d);
+	mesh->vVertices.emplace_back(-d, d, d);
+	mesh->vVertices.emplace_back(-d, d, -d);
 
 	return mesh;
 }
@@ -201,58 +203,28 @@ Mesh::generateRGBCubeTriangles(GLdouble l)
 	mesh->vColors.reserve(mesh->mNumVertices);
 
 	// 1
-	mesh->vColors.emplace_back(.0, .0, 1.0, 1.0);
-	mesh->vColors.emplace_back(.0, .0, 1.0, 1.0);
-	mesh->vColors.emplace_back(.0, .0, 1.0, 1.0);
-
-	mesh->vColors.emplace_back(.0, .0, 1.0, 1.0);
-	mesh->vColors.emplace_back(.0, .0, 1.0, 1.0);
-	mesh->vColors.emplace_back(.0, .0, 1.0, 1.0);
+	for (int i = 0; i < 6; ++i)
+		mesh->vColors.emplace_back(.0, .0, 1.0, 1.0);
 
 	// 2
-	mesh->vColors.emplace_back(1.0, .0, .0, 1.0);
-	mesh->vColors.emplace_back(1.0, .0, .0, 1.0);
-	mesh->vColors.emplace_back(1.0, .0, .0, 1.0);
-
-	mesh->vColors.emplace_back(1.0, .0, .0, 1.0);
-	mesh->vColors.emplace_back(1.0, .0, .0, 1.0);
-	mesh->vColors.emplace_back(1.0, .0, .0, 1.0);
+	for (int i = 0; i < 6; ++i)
+		mesh->vColors.emplace_back(1.0, .0, .0, 1.0);
 
 	// 3
-	mesh->vColors.emplace_back(.0, 1.0, .0, 1.0);
-	mesh->vColors.emplace_back(.0, 1.0, .0, 1.0);
-	mesh->vColors.emplace_back(.0, 1.0, .0, 1.0);
-
-	mesh->vColors.emplace_back(.0, 1.0, .0, 1.0);
-	mesh->vColors.emplace_back(.0, 1.0, .0, 1.0);
-	mesh->vColors.emplace_back(.0, 1.0, .0, 1.0);
+	for (int i = 0; i < 6; ++i)
+		mesh->vColors.emplace_back(.0, 1.0, .0, 1.0);
 
 	// 4
-	mesh->vColors.emplace_back(1.0, .0, .0, 1.0);
-	mesh->vColors.emplace_back(1.0, .0, .0, 1.0);
-	mesh->vColors.emplace_back(1.0, .0, .0, 1.0);
-
-	mesh->vColors.emplace_back(1.0, .0, .0, 1.0);
-	mesh->vColors.emplace_back(1.0, .0, .0, 1.0);
-	mesh->vColors.emplace_back(1.0, .0, .0, 1.0);
+	for (int i = 0; i < 6; ++i)
+		mesh->vColors.emplace_back(1.0, .0, .0, 1.0);
 
 	// 5
-	mesh->vColors.emplace_back(.0, .0, 1.0, 1.0);
-	mesh->vColors.emplace_back(.0, .0, 1.0, 1.0);
-	mesh->vColors.emplace_back(.0, .0, 1.0, 1.0);
-
-	mesh->vColors.emplace_back(.0, .0, 1.0, 1.0);
-	mesh->vColors.emplace_back(.0, .0, 1.0, 1.0);
-	mesh->vColors.emplace_back(.0, .0, 1.0, 1.0);
+	for (int i = 0; i < 6; ++i)
+		mesh->vColors.emplace_back(.0, .0, 1.0, 1.0);
 
 	// 6
-	mesh->vColors.emplace_back(.0, 1.0, .0, 1.0);
-	mesh->vColors.emplace_back(.0, 1.0, .0, 1.0);
-	mesh->vColors.emplace_back(.0, 1.0, .0, 1.0);
-
-	mesh->vColors.emplace_back(.0, 1.0, .0, 1.0);
-	mesh->vColors.emplace_back(.0, 1.0, .0, 1.0);
-	mesh->vColors.emplace_back(.0, 1.0, .0, 1.0);
+	for (int i = 0; i < 6; ++i)
+		mesh->vColors.emplace_back(.0, 1.0, .0, 1.0);
 
 	return mesh;
 }

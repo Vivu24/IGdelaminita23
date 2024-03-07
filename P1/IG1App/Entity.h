@@ -31,6 +31,8 @@ public:
 	void setSecondTexture(Texture* t);
 
 protected:
+	glm::dvec3 pos;
+
 	Mesh* mMesh = nullptr; // the mesh
 	glm::dmat4 mModelMat;  // modeling matrix
 
@@ -105,7 +107,7 @@ public:
 class BoxOutline : public Abs_Entity
 {
 public:
-	explicit BoxOutline(GLdouble l);
+	explicit BoxOutline(GLdouble l, glm::dvec3 p);
 	~BoxOutline();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
@@ -113,7 +115,7 @@ public:
 class Star3D : public Abs_Entity
 {
 public:
-	explicit Star3D(GLdouble re, GLuint np, GLdouble h);
+	explicit Star3D(GLdouble re, GLuint np, GLdouble h, glm::dvec3 p);
 	~Star3D();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 	void update() override;
