@@ -12,25 +12,28 @@ Scene::init()
 
 	// allocate memory and load resources
 	// Lights
-	// Textures
 	
+	// Textures
+	loadTextures();
+
 	setScene(0);
 }
 void
-Scene::free()
+Scene::freeObjects()
 { // release memory and resources
-
 	for (Abs_Entity* el : gObjects) {
 		delete el;
 		el = nullptr;
 	}
+
+	gObjects.resize(0);
+}
+void
+Scene::freeTextures() {
 	for (Texture* t : gTextures) {
 		delete t;
 		t = nullptr;
 	}
-
-	gTextures.resize(0);
-	gObjects.resize(0);
 }
 void
 Scene::setGL()
@@ -53,6 +56,23 @@ Scene::resetGL()
 	glDisable(GL_BLEND);
 }
 
+void 
+Scene::loadTextures() {
+	gTextures.push_back(new Texture()); // Textura vacia para la foto mas adelante
+
+	// Textura de la ventana
+	Texture* t = new Texture();
+	t->load(textureRoot + imgs[0], 128);
+	gTextures.push_back(t);
+
+	// Bucle de carga de las texturas con alpha = 255
+	for (int i = 1; i < NUM_TEXTURES; ++i) {
+		t = new Texture();
+		t->load(textureRoot + imgs[i], 255);
+		gTextures.push_back(t);
+	}
+}
+
 void
 Scene::render(Camera const& cam) const
 {
@@ -72,7 +92,7 @@ Scene::update() {
 
 void 
 Scene::setScene(GLint id) {
-	free();
+	freeObjects();
 
 	gObjects.push_back(new EjesRGB(400.0));
 
@@ -85,101 +105,63 @@ Scene::setScene(GLint id) {
 		gObjects.push_back(new RGBCube(200.0));
 	}
 	else if (id == 2) {
-		Texture* t = new Texture();
-		t->load("../bmps/baldosaC.bmp", 255);
-		t->setWrap(GL_REPEAT);
-		gTextures.push_back(t);
 		Abs_Entity* e = new Ground(300, 300);
-		e->setTexture(t);
+		e->setTexture(gTextures[BALDOSA]);
 
 		gObjects.push_back(e);
 	}
 	else if (id == 3) {
-		Texture* t = new Texture();
-		t->load("../bmps/container.bmp", 255);
-		gTextures.push_back(t);
-		Texture* t2 = new Texture();
-		t2->load("../bmps/papelE.bmp", 255);
-		gTextures.push_back(t2);
 		Abs_Entity* e = new BoxOutline(200.0, dvec3(.0, .0, .0));
-		e->setTexture(t);
-		e->setSecondTexture(t2);
+		e->setTexture(gTextures[CAJA_A]);
+		e->setSecondTexture(gTextures[CAJA_B]);
 
 		gObjects.push_back(e);
 	}
 	else if (id == 4) {
-		Texture* t = new Texture();
-		t->load("../bmps/baldosaP.bmp");
-		gTextures.push_back(t);
 		Abs_Entity* e = new Star3D(200.0, 8.0, 200.0, dvec3(.0, .0, .0));
-		e->setTexture(t);
+		e->setTexture(gTextures[ESTRELLA]);
 
 		gObjects.push_back(e);
 	}
 	else if (id == 5) {
-		Texture* t = new Texture();
-		t->load("../bmps/windowV.bmp", 128);
-		gTextures.push_back(t);
 		Abs_Entity* e = new GlassParapet();
-		e->setTexture(t);
+		e->setTexture(gTextures[VENTANA]);
 
 		gObjects.push_back(e);
 	}
 	else if (id == 6) {
-		Texture* t = new Texture();
-		t->load("../bmps/baldosaC.bmp", 255);
-		gTextures.push_back(t);
 		Abs_Entity* e = new Ground(500.0, 500.0);
-		e->setTexture(t);
+		e->setTexture(gTextures[BALDOSA]);
 
-		Texture* t2 = new Texture();
-		t2->loadColorBuffer(800.0, 600.0);
-		gTextures.push_back(t2);
 		Abs_Entity* p = new Photo();
-		p->setTexture(t2);
+		gTextures[FOTO]->loadColorBuffer(800.0, 600.0);
+		p->setTexture(gTextures[FOTO]);
 
 		gObjects.push_back(e);
 		gObjects.push_back(p);
 	}
 	else if (id == 7) {
 		// GROUND
-		Texture* t = new Texture();
-		t->load("../bmps/baldosaC.bmp", 255);
-		gTextures.push_back(t);
 		Abs_Entity* e = new Ground(300.0, 300.0);
-		e->setTexture(t);
+		e->setTexture(gTextures[BALDOSA]);
 
 		// PHOTO
-		Texture* t2 = new Texture();
-		t2->loadColorBuffer(800.0, 600.0);
-		gTextures.push_back(t2);
 		Abs_Entity* p = new Photo();
-		p->setTexture(t2);
+		gTextures[FOTO]->loadColorBuffer(800.0, 600.0);
+		p->setTexture(gTextures[FOTO]);
 
 		// BOX
-		Texture* t3 = new Texture();
-		t3->load("../bmps/container.bmp", 255);
-		gTextures.push_back(t3);
-		Texture* t4 = new Texture();
-		t4->load("../bmps/papelE.bmp", 255);
-		gTextures.push_back(t4);
 		Abs_Entity* b = new BoxOutline(50.0, dvec3(-112.5, 25.0, -112.5));
-		b->setTexture(t3);
-		b->setSecondTexture(t4);
+		b->setTexture(gTextures[CAJA_A]);
+		b->setSecondTexture(gTextures[CAJA_B]);
 
 		// STAR
-		Texture* t5 = new Texture();
-		t5->load("../bmps/baldosaP.bmp");
-		gTextures.push_back(t5);
 		Abs_Entity* s = new Star3D(25.0, 8.0, 25.0, dvec3(-112.5, 70.0, -112.5));
-		s->setTexture(t5);
+		s->setTexture(gTextures[ESTRELLA]);
 
 		// GLASS
-		Texture* t6 = new Texture();
-		t6->load("../bmps/windowV.bmp", 128);
-		gTextures.push_back(t6);
 		Abs_Entity* gp = new GlassParapet();
-		gp->setTexture(t6);
+		gp->setTexture(gTextures[VENTANA]);
 
 		gObjects.push_back(e);
 		gObjects.push_back(p);

@@ -193,7 +193,6 @@ RGBCube::RGBCube(GLdouble l)
 	: Abs_Entity()
 {
 	mMesh = Mesh::generateRGBCubeTriangles(l);
-	//setColor(.0, .0, .0, 1.0);
 }
 
 RGBCube::~RGBCube()
@@ -322,9 +321,7 @@ Star3D::render(dmat4 const& modelViewMat) const
 		upload(aMat);
 		mMesh->render();
 
-		dmat4 rMat = mModelMat;
-		rMat *= rotate(dmat4(1), radians(180.0), dvec3(0.0, 1.0, 0.0));
-		aMat = modelViewMat * rMat; // glm matrix multiplication
+		aMat *= rotate(dmat4(1), radians(180.0), dvec3(0.0, 1.0, 0.0)); // glm matrix multiplication
 		upload(aMat);
 		mMesh->render();
 
@@ -362,7 +359,6 @@ GlassParapet::render(dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		glAlphaFunc(GL_GREATER, 0);
 		mTexture->bind(GL_REPLACE);
 		glLineWidth(2);
 
@@ -380,8 +376,8 @@ Photo::Photo()
 	: Abs_Entity()
 {
 	mMesh = Mesh::generateRectangleTexCor(150.0, 150.0, 1, 1);
-	mModelMat = translate(dmat4(1), dvec3(0.0, 0.1, 0.0)) *
-		rotate(dmat4(1), radians(90.0), dvec3(1.0, 0.0, 0.0));
+	mModelMat = translate(dmat4(1), dvec3(0.0, 0.1, 0.0)) 
+		* rotate(dmat4(1), radians(90.0), dvec3(1.0, 0.0, 0.0));
 }
 
 Photo::~Photo()

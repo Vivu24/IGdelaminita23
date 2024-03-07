@@ -9,13 +9,16 @@
 
 #include <vector>
 
+constexpr int NUM_TEXTURES = 5;
+
 class Scene
 {
 public:
 	Scene() = default;
 	~Scene()
 	{
-		free();
+		freeObjects();
+		freeTextures();
 		resetGL();
 	};
 
@@ -30,11 +33,33 @@ public:
 	void setScene(GLint id);
 
 protected:
+	const std::string textureRoot = "../bmps/";
+
+	const std::string imgs[NUM_TEXTURES]{
+		std::string {"windowV.bmp"},
+		std::string {"baldosaC.bmp"},
+		std::string {"container.bmp"},
+		std::string {"papelE.bmp"},
+		std::string {"baldosaP.bmp"}
+	};
+
+	enum TextureName
+	{
+		FOTO,
+		VENTANA,
+		BALDOSA,
+		CAJA_A,
+		CAJA_B,
+		ESTRELLA
+	};
+
 	GLint mId = 0;
 
-	void free();
+	void freeObjects();
+	void freeTextures();
 	void setGL();
 	void resetGL();
+	void loadTextures();
 
 	std::vector<Texture*> gTextures;
 	std::vector<Abs_Entity*> gObjects; // Entities (graphic objects) of the scene
