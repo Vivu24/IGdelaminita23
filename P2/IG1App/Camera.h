@@ -20,6 +20,7 @@ public:
 
 	void set2D();
 	void set3D();
+	void setCenital();
 
 	void pitch(GLdouble a); // rotates a degrees on the X axis
 	void yaw(GLdouble a);   // rotates a degrees on the Y axis
@@ -41,7 +42,28 @@ public:
 		uploadPM();
 	};
 
+	void moveLR(GLdouble cs); // A izquierda/A derecha
+	void moveFB(GLdouble cs); // Adelante/Atrás
+	void moveUD(GLdouble cs); // Arriba/Abajo
+
+	void pitchReal(GLdouble cs);
+	void yawReal(GLdouble cs);
+	void rollReal(GLdouble cs);
+
+	void orbit(GLdouble incAng, GLdouble incY);
+
+	void changePrj();
+
 protected:
+	glm::dvec3 mRight,
+			   mUpward,
+			   mFront;
+
+	GLdouble mRadio;
+	GLdouble mAng;
+
+	void setAxes();
+
 	glm::dvec3 mEye = {0.0, 0.0, 500.0}; // camera's position
 	glm::dvec3 mLook = {0.0, 0.0, 0.0};  // target's position
 	glm::dvec3 mUp = {0.0, 1.0, 0.0};    // the up vector

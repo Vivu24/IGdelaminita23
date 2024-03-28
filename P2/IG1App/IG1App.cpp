@@ -107,12 +107,19 @@ IG1App::update() {
 }
 
 void
-IG1App::display() const
+IG1App::display() /*const*/
 { // double buffering
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clears the back buffer
 
-	mScene->render(*mCamera); // uploads the viewport and camera to the GPU
+	if (m2Vistas) {
+		display2V();
+	}
+	else {
+		mViewPort->setSize(mWinW, mWinH);
+		mViewPort->setPos(0, 0);
+		mScene->render(*mCamera); // uploads the viewport and camera to the GPU
+	}
 
 	glutSwapBuffers(); // swaps the front and back buffer
 }
@@ -197,6 +204,13 @@ IG1App::key(unsigned char key, int x, int y)
 		case 'U':
 			start();
 			break;
+		case 'p': // APARTADO 44
+			mCamera->changePrj();
+			break;
+		case 'k':
+			m2Vistas = !m2Vistas;
+			break;
+
 		default:
 			need_redisplay = false;
 			break;
@@ -216,21 +230,33 @@ IG1App::specialKey(int key, int x, int y)
 	switch (key) {
 		case GLUT_KEY_RIGHT:
 			if (mdf == GLUT_ACTIVE_CTRL)
-				mCamera->pitch(-1); // rotates -1 on the X axis
+				//mCamera->pitch(-1); // rotates -1 on the X axis
+				//mCamera->moveLR(-1);
+				mCamera->pitchReal(-1);
 			else
-				mCamera->pitch(1); // rotates 1 on the X axis
+				//mCamera->pitch(1); // rotates 1 on the X axis
+				//mCamera->moveLR(1);
+				mCamera->pitchReal(1);
 			break;
 		case GLUT_KEY_LEFT:
 			if (mdf == GLUT_ACTIVE_CTRL)
-				mCamera->yaw(1); // rotates 1 on the Y axis
+				//mCamera->yaw(1); // rotates 1 on the Y axis
+				//mCamera->moveFB(1);
+				mCamera->yawReal(1);
 			else
-				mCamera->yaw(-1); // rotate -1 on the Y axis
+				//mCamera->yaw(-1); // rotate -1 on the Y axis
+				//mCamera->moveFB(-1);
+				mCamera->yawReal(-1);
 			break;
 		case GLUT_KEY_UP:
-			mCamera->roll(1); // rotates 1 on the Z axis
+			//mCamera->roll(1); // rotates 1 on the Z axis
+			//mCamera->moveUD(1);
+			mCamera->rollReal(1);
 			break;
 		case GLUT_KEY_DOWN:
-			mCamera->roll(-1); // rotates -1 on the Z axis
+			//mCamera->roll(-1); // rotates -1 on the Z axis
+			//mCamera->moveUD(-1);
+			mCamera->rollReal(-1);
 			break;
 		default:
 			need_redisplay = false;
@@ -240,4 +266,22 @@ IG1App::specialKey(int key, int x, int y)
 	if (need_redisplay)
 		glutPostRedisplay(); // marks the window as needing to be redisplayed -> calls to
 		                     // display()
+}
+
+void IG1App::display2V()
+{
+	Camera auxCam = *mCamera;	// Camara auxiliar copiando mCamera
+	Viewport auxVP = *mViewPort;	// Viewport auxiliar
+
+	mViewPort->setSize(mWinW / 2, mWinH);
+	auxCam.setSize(mViewPort->width(), mViewPort->height());
+
+	//*mViewPort = auxVP;
+
+	mViewPort->setPos(0, 0);
+	mScene->render(auxCam);
+
+	mViewPort->setPos(mWinW / 2, 0);
+	auxCam.setCenital();
+	mScene->render(auxCam);
 }

@@ -42,7 +42,7 @@ protected:
 	void start();
 	void stop();
 	void update();
-	void display() const;                      // the scene
+	void display() /*const*/;                      // the scene
 	void resize(int newWidth, int newHeight);  // the viewport (without changing the scale)
 	void key(unsigned char key, int x, int y); // keypress event
 	void specialKey(int key, int x, int y);    // keypress event for special characters
@@ -65,6 +65,9 @@ protected:
 	int mWinId = 0;     // window's identifier
 	int mWinW = 800;    // window's width
 	int mWinH = 600;    // window's height
+
+	void display2V();
+	bool m2Vistas;
 };
 
 #endif //_H_IG1App_H_
