@@ -75,6 +75,10 @@ IG1App::iniWinOpenGL()
 	glutSpecialFunc(s_specialKey);
 	glutDisplayFunc(s_display);
 
+	glutMouseFunc(s_mouse);
+	glutMotionFunc(s_motion);
+	glutMouseWheelFunc(s_mouseWheel);
+
 	cout << glGetString(GL_VERSION) << '\n';
 	cout << glGetString(GL_VENDOR) << '\n';
 }
@@ -285,3 +289,41 @@ void IG1App::display2V()
 	auxCam.setCenital();
 	mScene->render(auxCam);
 }
+
+void IG1App::mouse(int button, int state, int x, int y)
+{
+	mInitialMouseCoord = glm::vec2(x, y);
+	mMouseButt = button;
+}
+
+void IG1App::motion(int x, int y)
+{
+	mMouseCoord = glm::vec2(x, y);
+
+	if (mMouseButt == 0) {
+		mCamera->moveLR(mInitialMouseCoord.x - x);
+		mCamera->moveUD(mInitialMouseCoord.y - y);
+	}
+	else if (mMouseButt == 1){
+		mCamera->orbit((mInitialMouseCoord.x - x) * 0.1, mInitialMouseCoord.y - y);
+	}
+
+	mInitialMouseCoord = mMouseCoord;
+}
+
+void IG1App::mouseWheel(int n, int d, int x, int y)
+{
+	int auxmodifiers = glutGetModifiers();
+
+	if (auxmodifiers == GLUT_ACTIVE_CTRL) {
+		mCamera->setScale(d * 0.005);
+	}
+	else if (auxmodifiers == 0) {
+		mCamera->moveFB(d * 5);
+	}
+}
+
+
+
+
+

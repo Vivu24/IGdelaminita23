@@ -50,8 +50,8 @@ Camera::set3D()
 	mEye = dvec3(500, 500, 500);
 	mLook = dvec3(0, 10, 0);
 	mUp = dvec3(0, 1, 0);
-	mAng = 0;
-	mRadio = 0;
+	mAng = -45;
+	mRadio = 1000;
 	setVM();
 }
 
