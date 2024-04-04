@@ -82,7 +82,6 @@ IG1App::iniWinOpenGL()
 	cout << glGetString(GL_VERSION) << '\n';
 	cout << glGetString(GL_VENDOR) << '\n';
 }
-
 void
 IG1App::free()
 { // release memory and resources
@@ -214,6 +213,18 @@ IG1App::key(unsigned char key, int x, int y)
 		case 'k':
 			m2Vistas = !m2Vistas;
 			break;
+		case 'a' :
+			mCamera->moveLR(1);
+			break;
+		case 's' :
+			mCamera->moveUD(1);
+			break;
+		case 'd' :
+			mCamera->moveLR(-1);
+			break;
+		case 'w':
+			mCamera->moveUD(-1);
+			break;
 
 		default:
 			need_redisplay = false;
@@ -233,34 +244,31 @@ IG1App::specialKey(int key, int x, int y)
 
 	switch (key) {
 		case GLUT_KEY_RIGHT:
-			if (mdf == GLUT_ACTIVE_CTRL)
-				//mCamera->pitch(-1); // rotates -1 on the X axis
-				//mCamera->moveLR(-1);
-				mCamera->pitchReal(-1);
-			else
-				//mCamera->pitch(1); // rotates 1 on the X axis
-				//mCamera->moveLR(1);
-				mCamera->pitchReal(1);
+			//mCamera->pitch(-1); // rotates -1 on the X axis
+			//mCamera->moveLR(-1);
+			//mCamera->pitchReal(1);
+			//mCamera->pitch(1); // rotates 1 on the X axis
+			//mCamera->moveLR(-1);
+			//mCamera->pitchReal(1);
+
+			mCamera->yawReal(-1);
 			break;
 		case GLUT_KEY_LEFT:
-			if (mdf == GLUT_ACTIVE_CTRL)
-				//mCamera->yaw(1); // rotates 1 on the Y axis
-				//mCamera->moveFB(1);
-				mCamera->yawReal(1);
-			else
-				//mCamera->yaw(-1); // rotate -1 on the Y axis
-				//mCamera->moveFB(-1);
-				mCamera->yawReal(-1);
+			//mCamera->yaw(1); // rotates 1 on the Y axis
+			//mCamera->moveFB(1);
+			mCamera->yawReal(1);
+			//mCamera->yaw(-1); // rotate -1 on the Y axis
+			//mCamera->yawReal(-1);
 			break;
 		case GLUT_KEY_UP:
 			//mCamera->roll(1); // rotates 1 on the Z axis
 			//mCamera->moveUD(1);
-			mCamera->rollReal(1);
+			mCamera->pitchReal(1);
 			break;
 		case GLUT_KEY_DOWN:
 			//mCamera->roll(-1); // rotates -1 on the Z axis
 			//mCamera->moveUD(-1);
-			mCamera->rollReal(-1);
+			mCamera->pitchReal(-1);
 			break;
 		default:
 			need_redisplay = false;
@@ -309,6 +317,8 @@ void IG1App::motion(int x, int y)
 	}
 
 	mInitialMouseCoord = mMouseCoord;
+
+	glutPostRedisplay();
 }
 
 void IG1App::mouseWheel(int n, int d, int x, int y)
@@ -321,6 +331,8 @@ void IG1App::mouseWheel(int n, int d, int x, int y)
 	else if (auxmodifiers == 0) {
 		mCamera->moveFB(d * 5);
 	}
+
+	glutPostRedisplay();
 }
 
 

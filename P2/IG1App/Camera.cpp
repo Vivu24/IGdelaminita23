@@ -176,18 +176,47 @@ void Camera::changePrj()
 
 void Camera::pitchReal(GLdouble cs)
 {
-	mViewMat = rotate(mViewMat, glm::radians(cs), mRight);
-}
+	glm::dmat4 rotationMatrix = rotate(dmat4(1.0), glm::radians(cs), mRight);
 
+	glm::dvec4 rotatedVector = rotationMatrix * dvec4(mLook, 1.0);
+
+	mLook = rotatedVector;
+	
+	rotatedVector = rotationMatrix * dvec4(mEye, 1.0);
+
+	mEye = rotatedVector;
+
+	setVM();
+}
 
 void Camera::yawReal(GLdouble cs)
 {
-	mViewMat = rotate(mViewMat, glm::radians(cs), mUpward);
+	glm::dmat4 rotationMatrix = rotate(dmat4(1.0), glm::radians(cs), mUpward);
+
+	glm::dvec4 rotatedVector = rotationMatrix * dvec4(mLook, 1.0);
+
+	mLook = rotatedVector;
+
+	rotatedVector = rotationMatrix * dvec4(mEye, 1.0);
+
+	mEye = rotatedVector;
+
+	setVM();
 }
 
 void Camera::rollReal(GLdouble cs)
 {
-	mViewMat = rotate(mViewMat, glm::radians(cs), mFront);
+	glm::dmat4 rotationMatrix = rotate(dmat4(1.0), glm::radians(cs), mFront);
+
+	glm::dvec4 rotatedVector = rotationMatrix * dvec4(mLook, 1.0);
+
+	mLook = rotatedVector;
+
+	rotatedVector = rotationMatrix * dvec4(mEye, 1.0);
+
+	mEye = rotatedVector;
+
+	setVM();
 }
 
 void Camera::orbit(GLdouble incAng, GLdouble incY)
