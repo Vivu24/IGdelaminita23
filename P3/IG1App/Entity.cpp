@@ -410,3 +410,67 @@ void
 Photo::update() {
 	mTexture->loadColorBuffer(800.0, 600.0);
 }
+
+QuadricEntity::QuadricEntity() :
+	red(),
+	green(),
+	blue()
+{
+	obj = gluNewQuadric();
+}
+
+QuadricEntity::~QuadricEntity()
+{
+	gluDeleteQuadric(obj);
+}
+
+void QuadricEntity::setRGB(GLdouble r, GLdouble g, GLdouble b)
+{
+	red = r;
+	green = g;
+	blue = b;
+}
+
+Sphere::Sphere(GLdouble r) :
+	r(r)
+{
+
+}
+
+void Sphere::render(glm::dmat4 const& modelViewMat) const
+{
+	dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+	upload(aMat);
+
+	glEnable(GL_COLOR_MATERIAL);
+	glColor3f(red, green, blue);
+	gluQuadricDrawStyle(obj, GLU_FILL);
+
+	gluSphere(obj, r, 50, 50);
+	glColor3f(1.0, 1.0, 1.0);
+	glDisable(GL_COLOR_MATERIAL);
+}
+
+Cylinder::Cylinder(GLdouble rbase, GLdouble rtapa, GLdouble h) :
+	rbase(rbase),
+	rtapa(rtapa),
+	h(h)
+{
+
+}
+
+Disk::Disk(GLdouble rinterior, GLdouble rexterior) :
+	rinterior(rinterior),
+	rexterior(rexterior)
+{
+
+}
+
+PartialDisk::PartialDisk(GLdouble rinterior, GLdouble rexterior, GLdouble sang, GLdouble swang) :
+	rinterior(rinterior),
+	rexterior(rexterior),
+	sang(sang),
+	swang(swang)
+{
+
+}

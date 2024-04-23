@@ -190,4 +190,9 @@ Scene::setScene(GLint id) {
 		gObjects.push_back(s);
 		gObjects.push_back(gp);
 	}
+	else if (id == 8) {
+		Abs_Entity* s = new Sphere(200.0);
+
+		gObjects.push_back(s);
+	}
 }

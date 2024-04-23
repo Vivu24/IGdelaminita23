@@ -201,6 +201,11 @@ IG1App::key(unsigned char key, int x, int y)
 			mScene->setScene(7);
 			mCamera->set3D();
 			break;
+		case '9': // APARTADO 57
+			stop();
+			mScene->setScene(8);
+			mCamera->set3D();
+			break;
 		case 'u':
 			mScene->update();
 			break;
