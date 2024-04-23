@@ -1,1 +1,25 @@
-﻿
+﻿  Camera.cpp
+  Entity.cpp
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P3\IG1App\Entity.cpp(411,35): warning C4244: 'argumento': conversión de 'double' a 'GLsizei'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P3\IG1App\Entity.cpp(411,28): warning C4244: 'argumento': conversión de 'double' a 'GLsizei'; posible pérdida de datos
+  IG1App.cpp
+  main.cpp
+  Mesh.cpp
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P3\IG1App\Mesh.cpp(81,20): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P3\IG1App\Mesh.cpp(302,23): warning C4018: '<': no coinciden signed/unsigned
+  Pixmap32RGBA.cpp
+  Scene.cpp
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P3\IG1App\Scene.cpp(42,25): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P3\IG1App\Scene.cpp(42,20): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P3\IG1App\Scene.cpp(42,15): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P3\IG1App\Scene.cpp(120,41): warning C4244: 'argumento': conversión de 'double' a 'GLuint'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P3\IG1App\Scene.cpp(141,37): warning C4244: 'argumento': conversión de 'double' a 'GLuint'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P3\IG1App\Scene.cpp(157,43): warning C4244: 'argumento': conversión de 'double' a 'GLsizei'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P3\IG1App\Scene.cpp(157,36): warning C4244: 'argumento': conversión de 'double' a 'GLsizei'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P3\IG1App\Scene.cpp(170,43): warning C4244: 'argumento': conversión de 'double' a 'GLsizei'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P3\IG1App\Scene.cpp(170,36): warning C4244: 'argumento': conversión de 'double' a 'GLsizei'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P3\IG1App\Scene.cpp(179,36): warning C4244: 'argumento': conversión de 'double' a 'GLuint'; posible pérdida de datos
+  Texture.cpp
+  Viewport.cpp
+  Generando código...
+  IG1App.vcxproj -> C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P3\bin\IG1AppDebug.exe

@@ -44,6 +44,7 @@ Scene::setGL()
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GLUT_MULTISAMPLE);
 	glEnable(GL_BLEND);
+	glEnable(GL_COLOR_MATERIAL);		// Apartado 56
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 void
@@ -54,6 +55,7 @@ Scene::resetGL()
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GLUT_MULTISAMPLE);
 	glDisable(GL_BLEND);
+	glDisable(GL_COLOR_MATERIAL);		// Apartado 56
 }
 
 void 
@@ -76,6 +78,8 @@ Scene::loadTextures() {
 void
 Scene::render(Camera const& cam) const
 {
+	sceneDirLight(cam);		// Apartado 56
+
 	cam.upload();
 
 	for (Abs_Entity* el : gObjects) {
@@ -89,6 +93,23 @@ Scene::update() {
 		e->update();
 	}
 }
+
+void 
+Scene::sceneDirLight(Camera const& cam) const {
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glm::fvec4 posDir = { 1, 1, 1, 0 };
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixd(value_ptr(cam.viewMat()));
+	glLightfv(GL_LIGHT0, GL_POSITION, value_ptr(posDir));
+	glm::fvec4 ambient = { 0, 0, 0, 1 };
+	glm::fvec4 diffuse = { 1, 1, 1, 1 };
+	glm::fvec4 specular = { 0.5, 0.5, 0.5, 1 };
+	glLightfv(GL_LIGHT0, GL_AMBIENT, value_ptr(ambient));
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, value_ptr(diffuse));
+	glLightfv(GL_LIGHT0, GL_SPECULAR, value_ptr(specular));
+}
+
 
 void 
 Scene::setScene(GLint id) {

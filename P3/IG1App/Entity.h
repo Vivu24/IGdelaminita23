@@ -139,4 +139,55 @@ public:
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 	void update() override;
 };
+
+class QuadricEntity : public Abs_Entity		// Apartado 57
+{
+public:
+	explicit QuadricEntity();
+	~QuadricEntity();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+protected:
+	GLdouble red, green, blue;
+	GLUquadricObj* obj;
+};
+
+class Sphere : public QuadricEntity		// Apartado 57
+{
+public:
+	explicit Sphere(GLdouble r);
+	~Sphere();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+private:
+	GLdouble r;
+};
+
+class Cylinder : public QuadricEntity		// Apartado 57
+{
+public:
+	explicit Cylinder(GLdouble rbase, GLdouble rtapa, GLdouble h);
+	~Cylinder();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+private:
+	GLdouble rbase, rtapa, h;
+};
+
+class Disk : public QuadricEntity		// Apartado 57
+{
+public:
+	explicit Disk(GLdouble rinterior, GLdouble rexterior);
+	~Disk();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+private:
+	GLdouble rinterior, rexterior;
+};
+
+class PartialDisk : public QuadricEntity		// Apartado 57
+{
+public:
+	explicit PartialDisk(GLdouble rinterior, GLdouble rexterior, GLdouble sang, GLdouble swang);
+	~PartialDisk();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+private:
+	GLdouble rinterior, rexterior, sang, swang
+};
 #endif //_H_Entities_H_

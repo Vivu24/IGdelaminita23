@@ -61,6 +61,9 @@ protected:
 	void resetGL();
 	void loadTextures();
 
+	// Lo dejo protected de momento
+	void sceneDirLight(Camera const& cam) const;
+
 	std::vector<Texture*> gTextures;
 	std::vector<Abs_Entity*> gObjects; // Entities (graphic objects) of the scene
 };
