@@ -23,7 +23,6 @@ public:
 	static Mesh* generateBoxOutlineTexCOr(GLdouble l);
 	static Mesh* generateStar3D(GLdouble re, GLuint np, GLdouble h);
 	static Mesh* generateStar3DTexCor(GLdouble re, GLuint np, GLdouble h);
-	static Mesh* generateAdvancedWingTIE(GLdouble width);
 
 	Mesh() = default;
 	virtual ~Mesh() = default;

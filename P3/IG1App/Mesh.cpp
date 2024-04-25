@@ -341,15 +341,6 @@ Mesh::generateStar3DTexCor(GLdouble re, GLuint np, GLdouble h) {
 	return mesh;
 }
 
-Mesh* 
-Mesh::generateAdvancedWingTIE(GLdouble width)
-{
-	Mesh* mesh = generateRectangleTexCor(width, 50.0, 0, 0);
-	
-
-	return mesh;
-}
-
 void IndexMesh::render() const {
 // Comandos OpenGL para enviar datos de arrays a GPU
 // Nuevos comandos para la tabla de índices
@@ -392,120 +383,25 @@ void IndexMesh::draw() const {
 
 IndexMesh* IndexMesh::generateIndexedBox(GLdouble l)
 {
-//#pragma region prueba1
-//
-//
-//	const auto mesh = new IndexMesh();
-//
-//	mesh->mNumVertices = 8;
-//
-//	mesh->vVertices.reserve(mesh->mNumVertices);
-//
-//	mesh->vVertices.emplace_back(dvec3(-l / 2, l / 2, l / 2));
-//
-//	mesh->vVertices.emplace_back(dvec3(-l / 2, -l / 2, l / 2));
-//
-//	mesh->vVertices.emplace_back(dvec3(l / 2, l / 2, l / 2));
-//
-//	mesh->vVertices.emplace_back(dvec3(l / 2, -l / 2, l / 2));
-//
-//	mesh->vVertices.emplace_back(dvec3(l / 2, l / 2, -l / 2));
-//
-//	mesh->vVertices.emplace_back(dvec3(l / 2, -l / 2, -l / 2));
-//
-//	mesh->vVertices.emplace_back(dvec3(-l / 2, l / 2, -l / 2));
-//
-//	mesh->vVertices.emplace_back(dvec3(-l / 2, -l / 2, -l / 2));
-//
-//	mesh->nNumIndices = 36;
-//	mesh->vIndexes = new GLuint[mesh->nNumIndices];
-//
-//	// cara de abajo
-//	mesh->vIndexes[0] = 0;
-//	mesh->vIndexes[1] = 3;
-//	mesh->vIndexes[2] = 2;
-//
-//	mesh->vIndexes[3] = 0;
-//	mesh->vIndexes[4] = 2;
-//	mesh->vIndexes[5] = 1;
-//
-//	// cara de arriba
-//	mesh->vIndexes[6] = 4;
-//	mesh->vIndexes[7] = 5;
-//	mesh->vIndexes[8] = 6;
-//
-//	mesh->vIndexes[9] = 4;
-//	mesh->vIndexes[10] = 6;
-//	mesh->vIndexes[11] = 7;
-//
-//	// cara lateral cercana izquierda
-//	mesh->vIndexes[12] = 0;
-//	mesh->vIndexes[13] = 4;
-//	mesh->vIndexes[14] = 7;
-//
-//	mesh->vIndexes[15] = 0;
-//	mesh->vIndexes[16] = 7;
-//	mesh->vIndexes[17] = 3;
-//
-//	// cara lateral trasera derecha
-//	mesh->vIndexes[18] = 1;
-//	mesh->vIndexes[19] = 2;
-//	mesh->vIndexes[20] = 6;
-//
-//	mesh->vIndexes[21] = 1;
-//	mesh->vIndexes[22] = 6;
-//	mesh->vIndexes[23] = 5;
-//
-//	// cara lateral cercana derecha
-//	mesh->vIndexes[24] = 0;
-//	mesh->vIndexes[25] = 1;
-//	mesh->vIndexes[26] = 5;
-//
-//	mesh->vIndexes[27] = 0;
-//	mesh->vIndexes[28] = 5;
-//	mesh->vIndexes[29] = 4;
-//
-//	// cara lateral trasera izquierda
-//	mesh->vIndexes[30] = 2;
-//	mesh->vIndexes[31] = 3;
-//	mesh->vIndexes[32] = 7;
-//
-//	mesh->vIndexes[33] = 2;
-//	mesh->vIndexes[34] = 7;
-//	mesh->vIndexes[35] = 6;
-//
-//	mesh->buildNormalVectors();
-//
-//	return mesh;
-//#pragma endregion
-
-#pragma region prueba2
 	const auto mesh = new IndexMesh();
 
 	mesh->mPrimitive = GL_TRIANGLES;
-	/// VERTICES
 	mesh->mNumVertices = 8;
 	mesh->vVertices.reserve(mesh->mNumVertices);
 
-	mesh->vVertices.emplace_back(l, l, -l); // v0
-	mesh->vVertices.emplace_back(l, -l, -l); // v1
-	mesh->vVertices.emplace_back(-l, -l, -l); // v2
-	mesh->vVertices.emplace_back(-l, l, -l); // v3
-	mesh->vVertices.emplace_back(l, l, l); // v4
-	mesh->vVertices.emplace_back(l, -l, l); // v5
-	mesh->vVertices.emplace_back(-l, -l, l); // v6
-	mesh->vVertices.emplace_back(-l, l, l); // v7
+	mesh->vVertices.emplace_back(l, l, -l); 
+	mesh->vVertices.emplace_back(l, -l, -l); 
+	mesh->vVertices.emplace_back(-l, -l, -l); 
+	mesh->vVertices.emplace_back(-l, l, -l); 
+	mesh->vVertices.emplace_back(l, l, l); 
+	mesh->vVertices.emplace_back(l, -l, l); 
+	mesh->vVertices.emplace_back(-l, -l, l); 
+	mesh->vVertices.emplace_back(-l, l, l);
 
-
-	/// INDICES
-	/// Define cuidadosamente los 36 índices que, de 3 en 3,
-	/// determinan las 12 caras triangulares de la malla.
-	/// Recuerda que los índices de estas caras deben darse
-	/// en sentido ¡¡¡ANTI-HORARIO!!! según se mira el cubo desde su exterior
 	mesh->nNumIndices = 36;
 	mesh->vIndexes = new GLuint[mesh->nNumIndices];
 
-	// cara de abajo
+	// 1
 	mesh->vIndexes[0] = 0;
 	mesh->vIndexes[1] = 3;
 	mesh->vIndexes[2] = 2;
@@ -514,7 +410,7 @@ IndexMesh* IndexMesh::generateIndexedBox(GLdouble l)
 	mesh->vIndexes[4] = 2;
 	mesh->vIndexes[5] = 1;
 
-	// cara de arriba
+	// 2
 	mesh->vIndexes[6] = 4;
 	mesh->vIndexes[7] = 5;
 	mesh->vIndexes[8] = 6;
@@ -523,7 +419,7 @@ IndexMesh* IndexMesh::generateIndexedBox(GLdouble l)
 	mesh->vIndexes[10] = 6;
 	mesh->vIndexes[11] = 7;
 
-	// cara lateral cercana izquierda
+	// 3
 	mesh->vIndexes[12] = 0;
 	mesh->vIndexes[13] = 4;
 	mesh->vIndexes[14] = 7;
@@ -532,7 +428,7 @@ IndexMesh* IndexMesh::generateIndexedBox(GLdouble l)
 	mesh->vIndexes[16] = 7;
 	mesh->vIndexes[17] = 3;
 
-	// cara lateral trasera derecha
+	// 4
 	mesh->vIndexes[18] = 1;
 	mesh->vIndexes[19] = 2;
 	mesh->vIndexes[20] = 6;
@@ -541,7 +437,7 @@ IndexMesh* IndexMesh::generateIndexedBox(GLdouble l)
 	mesh->vIndexes[22] = 6;
 	mesh->vIndexes[23] = 5;
 
-	// cara lateral cercana derecha
+	// 5
 	mesh->vIndexes[24] = 0;
 	mesh->vIndexes[25] = 1;
 	mesh->vIndexes[26] = 5;
@@ -550,7 +446,7 @@ IndexMesh* IndexMesh::generateIndexedBox(GLdouble l)
 	mesh->vIndexes[28] = 5;
 	mesh->vIndexes[29] = 4;
 
-	// cara lateral trasera izquierda
+	// 6
 	mesh->vIndexes[30] = 2;
 	mesh->vIndexes[31] = 3;
 	mesh->vIndexes[32] = 7;
@@ -563,21 +459,18 @@ IndexMesh* IndexMesh::generateIndexedBox(GLdouble l)
 	for (int i = 0; i < mesh->mNumVertices; i++)
 		mesh->vColors.emplace_back(0, 1, 0, 1);
 
-	int nV = 3;
-	mesh->vCaras.resize(mesh->nNumIndices / nV);
-	for (int i = 0; i < mesh->nNumIndices / nV; i++)
+	int verticesPorCara = 3;
+	mesh->vCaras.resize(mesh->nNumIndices / verticesPorCara);
+	for (int i = 0; i < mesh->nNumIndices / verticesPorCara; i++)
 	{
-		mesh->vCaras[i] = Cara(
-			mesh->vIndexes[i * nV],
-			mesh->vIndexes[i * nV + 1],
-			mesh->vIndexes[i * nV + 2]
-		);
+		mesh->vCaras[i] = Cara(mesh->vIndexes[i * verticesPorCara],
+							   mesh->vIndexes[i * verticesPorCara + 1],
+							   mesh->vIndexes[i * verticesPorCara + 2]);
 	}
 
 	mesh->buildNormalVectors();
 
 	return mesh;
-#pragma endregion
 }
 
 glm::dvec3 IndexMesh::calculoVectorNormalPorNewell(Cara C) {
