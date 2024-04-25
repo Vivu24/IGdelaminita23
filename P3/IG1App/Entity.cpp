@@ -221,8 +221,8 @@ RGBCube::render(dmat4 const& modelViewMat) const
 Ground::Ground(GLdouble w, GLdouble h)
 	: Abs_Entity()
 {
-	mMesh = Mesh::generateRectangleTexCor(w, h, 4, 4);
-	mModelMat = rotate(dmat4(1), radians(-90.0), dvec3(1.0, 0.0, 0.0));
+	mMesh = Mesh::generateRectangleTexCor(w, h, 1, 1);
+	//mModelMat = rotate(dmat4(1), radians(-90.0), dvec3(1.0, 0.0, 0.0));
 }
 
 Ground::~Ground()
@@ -437,6 +437,12 @@ Sphere::Sphere(GLdouble r) :
 
 }
 
+Sphere::~Sphere()
+{
+	delete mMesh;
+	mMesh = nullptr;
+}
+
 void Sphere::render(glm::dmat4 const& modelViewMat) const
 {
 	dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
@@ -459,6 +465,12 @@ Cylinder::Cylinder(GLdouble rbase, GLdouble rtapa, GLdouble h) :
 
 }
 
+Cylinder::~Cylinder()
+{
+	delete mMesh;
+	mMesh = nullptr;
+}
+
 void Cylinder::render(glm::dmat4 const& modelViewMat) const
 {
 	dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
@@ -478,6 +490,12 @@ Disk::Disk(GLdouble rinterior, GLdouble rexterior) :
 	rexterior(rexterior)
 {
 
+}
+
+Disk::~Disk()
+{
+	delete mMesh;
+	mMesh = nullptr;
 }
 
 void Disk::render(glm::dmat4 const& modelViewMat) const
@@ -503,6 +521,12 @@ PartialDisk::PartialDisk(GLdouble rinterior, GLdouble rexterior, GLdouble sang, 
 
 }
 
+PartialDisk::~PartialDisk()
+{
+	delete mMesh;
+	mMesh = nullptr;
+}
+
 void PartialDisk::render(glm::dmat4 const& modelViewMat)
 {
 	dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
@@ -521,12 +545,6 @@ CompoundEntity::CompoundEntity()
 {
 }
 
-CompoundEntity::~CompoundEntity()
-{
-	for (auto& g : gObjects) {
-		g->~Abs_Entity();
-	}
-}
 
 void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
 {
@@ -543,6 +561,18 @@ void CompoundEntity::update()
 void CompoundEntity::addEntity(Abs_Entity* ae)
 {
 	gObjects.push_back(ae);
+}
+
+void CompoundEntity::setTexture(Texture* t)
+{
+	for (auto& e : gObjects)
+		e->setTexture(t);
+}
+
+void CompoundEntity::setModelMat(glm::dmat4 const& aMat)
+{
+	for (auto& e : gObjects)
+		e->setModelMat(aMat);
 }
 
 IndexedBox::IndexedBox(GLdouble l) {
@@ -566,4 +596,103 @@ void IndexedBox::render(glm::dmat4 const& modelViewMat) const
 
 		mMesh->render();
 	}
+}
+
+WingAdvancedTIE::WingAdvancedTIE()
+{
+	Abs_Entity* r1 = new Ground(200.0, 100.0);
+	Abs_Entity* r2 = new Ground(200.0, 100.0);
+	Abs_Entity* r3 = new Ground(200.0, 100.0);
+
+	r1->setModelMat(glm::translate(glm::dmat4(1), dvec3(0.0, 75.0, .0)) 
+				* glm::translate(glm::dmat4(1), dvec3(0.0, .0, 25.0)) 
+				* glm::rotate(glm::dmat4(1), radians(45.0), dvec3(1.0, .0, .0)));
+
+	r3->setModelMat(glm::translate(glm::dmat4(1), dvec3(0.0, -75.0, .0))
+				* glm::translate(glm::dmat4(1), dvec3(0.0, .0, 25.0))
+				* glm::rotate(glm::dmat4(1), radians(-45.0), dvec3(1.0, .0, .0)));
+	
+	addEntity(r1);
+	addEntity(r2);
+	addEntity(r3);
+}
+
+WingAdvancedTIE::~WingAdvancedTIE()
+{
+	for (auto& g : gObjects) {
+		delete g;
+		g = nullptr;
+	}
+}
+
+void WingAdvancedTIE::render(glm::dmat4 const& modelViewMat) const
+{
+	CompoundEntity::render(modelViewMat);
+}
+
+Morro::Morro()
+{
+	QuadricEntity* c = new Cylinder(20.0, 20.0, 70.0);
+	QuadricEntity* d = new Disk(5.0, 20.0);
+
+	c->setRGB(0, 0.25, 0.42);
+	d->setRGB(0, 0.25, 0.42);
+
+	addEntity(c);
+	addEntity(d);
+}
+
+Morro::~Morro()
+{
+	for (auto& g : gObjects) {
+		delete g;
+		g = nullptr;
+	}
+}
+
+void Morro::render(glm::dmat4 const& modelViewMat) const
+{
+	CompoundEntity::render(modelViewMat);
+}
+
+AdvancedTIE::AdvancedTIE(Texture* t)
+{
+	CompoundEntity* ala_1 = new WingAdvancedTIE();
+	CompoundEntity* ala_2 = new WingAdvancedTIE();
+
+	for (Abs_Entity* e : ala_2->objects()) {
+		e->setModelMat(translate(dmat4(1), dvec3(0.0, 0.0, 300.0)) * scale(dmat4(1), dvec3(1.0, 1.0, -1.0)) * e->modelMat());
+	}
+	ala_1->setTexture(t);
+	ala_2->setTexture(t);
+
+	CompoundEntity* morro = new Morro();
+	morro->setModelMat(translate(dmat4(1), dvec3(120.0, 0.0, 150.0))
+					* glm::rotate(dmat4(1), radians(-90.0), dvec3(.0, 1.0, .0)));
+
+	QuadricEntity* nucleo = new Sphere(100.0);
+	nucleo->setModelMat(translate(dmat4(1), dvec3(0.0, 0.0, 150.0)));
+	nucleo->setRGB(0, 0.25, 0.42);
+
+	QuadricEntity* palo = new Cylinder(20.0, 20.0, 300.0);
+	palo->setRGB(0, 0.25, 0.42);
+
+	addEntity(ala_1);
+	addEntity(ala_2);
+	addEntity(morro);
+	addEntity(nucleo);
+	addEntity(palo);
+}
+
+AdvancedTIE::~AdvancedTIE()
+{
+	for (auto& g : gObjects) {
+		delete g;
+		g = nullptr;
+	}
+}
+
+void AdvancedTIE::render(glm::dmat4 const& modelViewMat) const
+{
+	CompoundEntity::render(modelViewMat);
 }

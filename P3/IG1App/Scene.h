@@ -9,7 +9,7 @@
 
 #include <vector>
 
-constexpr int NUM_TEXTURES = 5;
+constexpr int NUM_TEXTURES = 1;
 
 class Scene
 {
@@ -32,28 +32,24 @@ public:
 
 	void setScene(GLint id);
 
+	void orbit(float time);
+	void rotate(float time);
+
 protected:
 	const std::string textureRoot = "../bmps/";
 
 	const std::string imgs[NUM_TEXTURES]{
-		std::string {"windowV.bmp"},
-		std::string {"baldosaC.bmp"},
-		std::string {"container.bmp"},
-		std::string {"papelE.bmp"},
-		std::string {"baldosaP.bmp"}
+		std::string {"noche.bmp"}
 	};
 
 	enum TextureName
 	{
-		FOTO,
-		VENTANA,
-		BALDOSA,
-		CAJA_A,
-		CAJA_B,
-		ESTRELLA
+		NOCHE
 	};
 
 	GLint mId = 0;
+
+	GLdouble rotY;
 
 	void freeObjects();
 	void freeTextures();

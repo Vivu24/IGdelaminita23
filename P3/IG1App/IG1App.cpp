@@ -171,39 +171,14 @@ IG1App::key(unsigned char key, int x, int y)
 			mScene->setScene(1);
 			mCamera->set3D();
 			break;
-		case '3': // APARTADOS 18, 19 y 20
+		case '3': 
 			stop();
 			mScene->setScene(2);
 			mCamera->set3D();
 			break;
-		case '4': // APARTADOS 21, 22, 23 y 24
+		case '4': 
 			stop();
 			mScene->setScene(3);
-			mCamera->set3D();
-			break;
-		case '5': // APARTADOS 25, 26, 27 y 28
-			stop();
-			mScene->setScene(4);
-			mCamera->set3D();
-			break;
-		case '6': // APARTADO 31
-			stop();
-			mScene->setScene(5);
-			mCamera->set3D();
-			break;
-		case '7': // APARTADOS 35 y 36
-			stop();
-			mScene->setScene(6);
-			mCamera->set3D();
-			break;
-		case '8': // APARTADO 38
-			stop();
-			mScene->setScene(7);
-			mCamera->set3D();
-			break;
-		case '9': // APARTADO 57
-			stop();
-			mScene->setScene(8);
 			mCamera->set3D();
 			break;
 		case 'u':

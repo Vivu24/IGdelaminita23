@@ -341,6 +341,15 @@ Mesh::generateStar3DTexCor(GLdouble re, GLuint np, GLdouble h) {
 	return mesh;
 }
 
+Mesh* 
+Mesh::generateAdvancedWingTIE(GLdouble width)
+{
+	Mesh* mesh = generateRectangleTexCor(width, 50.0, 0, 0);
+	
+
+	return mesh;
+}
+
 void IndexMesh::render() const {
 // Comandos OpenGL para enviar datos de arrays a GPU
 // Nuevos comandos para la tabla de índices

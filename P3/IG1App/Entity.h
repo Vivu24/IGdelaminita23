@@ -27,11 +27,13 @@ public:
 	// Color setter and getter
 	glm::dvec4 getColor() { return mColor; }
 	void setColor(GLdouble r, GLdouble g, GLdouble b, GLdouble a);
-	void setTexture(Texture* t);
+	virtual void setTexture(Texture* t);
 	void setSecondTexture(Texture* t);
 
-protected:
 	glm::dvec3 pos;
+	glm::dvec3 rot;
+	GLdouble ang;
+protected:
 
 	Mesh* mMesh = nullptr; // the mesh
 	glm::dmat4 mModelMat;  // modeling matrix
@@ -144,7 +146,7 @@ class QuadricEntity : public Abs_Entity		// Apartado 57
 {
 public:
 	explicit QuadricEntity();
-	~QuadricEntity();
+	virtual ~QuadricEntity();
 	virtual void render(glm::dmat4 const& modelViewMat) const {};
 
 	void setRGB(GLdouble r = 1.0, GLdouble g = 1.0, GLdouble b = 1.0);
@@ -157,7 +159,7 @@ class Sphere : public QuadricEntity		// Apartado 57
 {
 public:
 	explicit Sphere(GLdouble r);
-	~Sphere() {};
+	~Sphere();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 private:
 	GLdouble r;
@@ -167,9 +169,8 @@ class Cylinder : public QuadricEntity		// Apartado 57
 {
 public:
 	explicit Cylinder(GLdouble rbase, GLdouble rtapa, GLdouble h);
-	~Cylinder() {};
+	~Cylinder();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
-
 private:
 	GLdouble rbase, rtapa, h;
 };
@@ -178,7 +179,7 @@ class Disk : public QuadricEntity		// Apartado 57
 {
 public:
 	explicit Disk(GLdouble rinterior, GLdouble rexterior);
-	~Disk() {};
+	~Disk();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 private:
 	GLdouble rinterior, rexterior;
@@ -188,7 +189,7 @@ class PartialDisk : public QuadricEntity		// Apartado 57
 {
 public:
 	explicit PartialDisk(GLdouble rinterior, GLdouble rexterior, GLdouble sang, GLdouble swang);
-	~PartialDisk() {};
+	~PartialDisk();
 	virtual void render(glm::dmat4 const& modelViewMat);
 private:
 	GLdouble rinterior, rexterior, sang, swang;
@@ -198,25 +199,40 @@ class CompoundEntity : public Abs_Entity
 {
 public:
 	explicit CompoundEntity();
-	~CompoundEntity();
+	~CompoundEntity() = default;
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 	void update() override;
 
 	void addEntity(Abs_Entity* ae);
-private:
+
+	void setTexture(Texture* t) override;
+	void setModelMat(glm::dmat4 const& aMat);
+
+	std::vector<Abs_Entity*> objects() { return gObjects; }
+protected:
 	std::vector<Abs_Entity*> gObjects;
 };
 
 class AdvancedTIE : public CompoundEntity
 {
-
+public:
+	AdvancedTIE(Texture* t);
+	~AdvancedTIE();
+	void render(glm::dmat4 const& modelViewMat) const override;
 };
 
-class WingAdvancedTIE : public Abs_Entity {
+class WingAdvancedTIE : public CompoundEntity {
 public:
-	WingAdvancedTIE() {};
-	~WingAdvancedTIE() {};
-	virtual void render(glm::dmat4 const& modelViewMat) const override;
+	WingAdvancedTIE();
+	~WingAdvancedTIE();
+	void render(glm::dmat4 const& modelViewMat) const override;
+};
+
+class Morro : public CompoundEntity {
+public:
+	Morro();
+	~Morro();
+	void render(glm::dmat4 const& modelViewMat) const override;
 };
 
 class IndexedBox : public Abs_Entity
