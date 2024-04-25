@@ -6,6 +6,8 @@
 
 #include <vector>
 
+#include "Cara.h"
+
 class Mesh
 {
 public:
@@ -41,7 +43,24 @@ protected:
 	std::vector<glm::dvec3> vVertices; // vertex array
 	std::vector<glm::dvec4> vColors;   // color array
 	std::vector<glm::dvec2> vTexCoords;
+	std::vector<glm::dvec3> vNormals;	// Apartado 61
 	virtual void draw() const;
+};
+
+class IndexMesh : public Mesh {		// Apartado 62
+protected:
+	GLuint* vIndexes = nullptr; // tabla de índices
+	GLuint nNumIndices = 0;
+	std::vector<Cara> vCaras;
+public:
+	IndexMesh() { mPrimitive = GL_TRIANGLES; }
+	~IndexMesh() { delete[] vIndexes; }
+	virtual void render() const;
+	virtual void draw() const;
+
+	static IndexMesh* generateIndexedBox(GLdouble l);	// Apartado 63
+	void buildNormalVectors();		// Apartado 65
+	glm::dvec3 calculoVectorNormalPorNewell(Cara c);
 };
 
 #endif //_H_Scene_H_

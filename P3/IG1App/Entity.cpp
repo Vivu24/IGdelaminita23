@@ -90,7 +90,7 @@ RGBTriangle::RGBTriangle(GLdouble radius)
 	: Abs_Entity(), rotationVelocity(4.0)
 {
 	mMesh = Mesh::generateRGBTriangle(radius);
-	mModelMat = translate(mModelMat, dvec3(200.0, .0, 1.0)); // Set inicial a la derecha
+	//mModelMat = translate(mModelMat, dvec3(200.0, .0, 1.0)); // Set inicial a la derecha
 	//setColor(r, g, b, a);
 }
 
@@ -459,11 +459,39 @@ Cylinder::Cylinder(GLdouble rbase, GLdouble rtapa, GLdouble h) :
 
 }
 
+void Cylinder::render(glm::dmat4 const& modelViewMat) const
+{
+	dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+	upload(aMat);
+
+	glEnable(GL_COLOR_MATERIAL);
+	glColor3f(red, green, blue);
+	gluQuadricDrawStyle(obj, GLU_FILL);
+
+	gluCylinder(obj, rbase, rtapa, h, 50, 50);
+	glColor3f(1.0, 1.0, 1.0);
+	glDisable(GL_COLOR_MATERIAL);
+}
+
 Disk::Disk(GLdouble rinterior, GLdouble rexterior) :
 	rinterior(rinterior),
 	rexterior(rexterior)
 {
 
+}
+
+void Disk::render(glm::dmat4 const& modelViewMat) const
+{
+	dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+	upload(aMat);
+
+	glEnable(GL_COLOR_MATERIAL);
+	glColor3f(red, green, blue);
+	gluQuadricDrawStyle(obj, GLU_FILL);
+
+	gluDisk(obj, rinterior, rexterior, 50, 50);
+	glColor3f(1.0, 1.0, 1.0);
+	glDisable(GL_COLOR_MATERIAL);
 }
 
 PartialDisk::PartialDisk(GLdouble rinterior, GLdouble rexterior, GLdouble sang, GLdouble swang) :
@@ -473,4 +501,69 @@ PartialDisk::PartialDisk(GLdouble rinterior, GLdouble rexterior, GLdouble sang, 
 	swang(swang)
 {
 
+}
+
+void PartialDisk::render(glm::dmat4 const& modelViewMat)
+{
+	dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+	upload(aMat);
+
+	glEnable(GL_COLOR_MATERIAL);
+	glColor3f(red, green, blue);
+	gluQuadricDrawStyle(obj, GLU_FILL);
+
+	gluPartialDisk(obj, rinterior, rexterior, 50, 50, sang, swang);
+	glColor3f(1.0, 1.0, 1.0);
+	glDisable(GL_COLOR_MATERIAL);
+}
+
+CompoundEntity::CompoundEntity()
+{
+}
+
+CompoundEntity::~CompoundEntity()
+{
+	for (auto& g : gObjects) {
+		g->~Abs_Entity();
+	}
+}
+
+void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
+{
+	for (auto& g : gObjects) 
+		g->render(modelViewMat);
+}
+
+void CompoundEntity::update()
+{
+	for (auto& e : gObjects) 
+		e->update();
+}
+
+void CompoundEntity::addEntity(Abs_Entity* ae)
+{
+	gObjects.push_back(ae);
+}
+
+IndexedBox::IndexedBox(GLdouble l) {
+	mMesh = IndexMesh::generateIndexedBox(l);
+}
+
+IndexedBox::~IndexedBox()
+{
+	delete mMesh;
+	mMesh = nullptr;
+}
+
+void IndexedBox::render(glm::dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr)
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		upload(aMat);
+
+		mMesh->render();
+	}
 }

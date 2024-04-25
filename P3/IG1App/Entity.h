@@ -168,7 +168,8 @@ class Cylinder : public QuadricEntity		// Apartado 57
 public:
 	explicit Cylinder(GLdouble rbase, GLdouble rtapa, GLdouble h);
 	~Cylinder() {};
-	virtual void render(glm::dmat4 const& modelViewMat) const {};
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+
 private:
 	GLdouble rbase, rtapa, h;
 };
@@ -178,7 +179,7 @@ class Disk : public QuadricEntity		// Apartado 57
 public:
 	explicit Disk(GLdouble rinterior, GLdouble rexterior);
 	~Disk() {};
-	virtual void render(glm::dmat4 const& modelViewMat) const {};
+	virtual void render(glm::dmat4 const& modelViewMat) const;
 private:
 	GLdouble rinterior, rexterior;
 };
@@ -188,8 +189,43 @@ class PartialDisk : public QuadricEntity		// Apartado 57
 public:
 	explicit PartialDisk(GLdouble rinterior, GLdouble rexterior, GLdouble sang, GLdouble swang);
 	~PartialDisk() {};
-	virtual void render(glm::dmat4 const& modelViewMat) const {};
+	virtual void render(glm::dmat4 const& modelViewMat);
 private:
 	GLdouble rinterior, rexterior, sang, swang;
+};
+
+class CompoundEntity : public Abs_Entity 
+{
+public:
+	explicit CompoundEntity();
+	~CompoundEntity();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+	void update() override;
+
+	void addEntity(Abs_Entity* ae);
+private:
+	std::vector<Abs_Entity*> gObjects;
+};
+
+class AdvancedTIE : public CompoundEntity
+{
+
+};
+
+class WingAdvancedTIE : public Abs_Entity {
+public:
+	WingAdvancedTIE() {};
+	~WingAdvancedTIE() {};
+	virtual void render(glm::dmat4 const& modelViewMat) const override;
+};
+
+class IndexedBox : public Abs_Entity
+{
+public:
+	explicit IndexedBox(GLdouble l);
+	~IndexedBox();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+
+	glm::vec3 calculoVectorNormalPorNewell(Cara c);
 };
 #endif //_H_Entities_H_

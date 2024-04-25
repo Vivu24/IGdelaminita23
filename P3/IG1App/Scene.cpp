@@ -46,6 +46,7 @@ Scene::setGL()
 	glEnable(GL_BLEND);
 	glEnable(GL_COLOR_MATERIAL);		// Apartado 56
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_NORMALIZE);
 }
 void
 Scene::resetGL()
@@ -56,6 +57,7 @@ Scene::resetGL()
 	glDisable(GLUT_MULTISAMPLE);
 	glDisable(GL_BLEND);
 	glDisable(GL_COLOR_MATERIAL);		// Apartado 56
+	glDisable(GL_NORMALIZE);
 }
 
 void 
@@ -115,15 +117,27 @@ void
 Scene::setScene(GLint id) {
 	freeObjects();
 
+	glClearColor(0.6, 0.7, 0.8, 1.0);
+
 	gObjects.push_back(new EjesRGB(400.0));
 
-	if (id == 0) {
+	if (id == 0) { // APARTADO 66
+		CompoundEntity* inventedNode = new CompoundEntity();
+		RGBTriangle* tr = new RGBTriangle(50.0);
+
+		inventedNode->addEntity(tr);
+		tr->setModelMat(glm::translate(inventedNode->modelMat(),
+			dvec3(200, 0, 0)));
+
 		gObjects.push_back(new RegularPolygon(100.0, 200.0, 1.0, 1.0, 1.0, 1.0));
 		gObjects.push_back(new RGBRectangle(400.0, 150.0));
-		gObjects.push_back(new RGBTriangle(50.0));
+		gObjects.push_back(inventedNode);
 	}
 	else if (id == 1) {
-		gObjects.push_back(new RGBCube(200.0));
+		glClearColor(1, 0, 0, 1);
+		QuadricEntity* planeta = new Sphere(200.0);
+		planeta->setRGB(255, 233, 0);
+		gObjects.push_back(planeta);
 	}
 	else if (id == 2) {
 		Abs_Entity* e = new Ground(300, 300);
@@ -191,8 +205,8 @@ Scene::setScene(GLint id) {
 		gObjects.push_back(gp);
 	}
 	else if (id == 8) {
-		Abs_Entity* s = new Sphere(200.0);
-
+		//Abs_Entity* s = new Sphere(100.0);
+		Abs_Entity* s = new IndexedBox(200.0);
 		gObjects.push_back(s);
 	}
 }
