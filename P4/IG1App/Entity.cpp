@@ -704,3 +704,33 @@ void AdvancedTIE::render(glm::dmat4 const& modelViewMat) const
 {
 	CompoundEntity::render(modelViewMat);
 }
+
+RevSphere::RevSphere(GLint r, GLint p, GLint m)
+{
+	dvec3* perfil = new dvec3[p];
+	GLdouble alpha = 180.0 / (p - 1); 
+
+	for (int i = 0; i < p; i++)
+		perfil[i] = dvec3(cos(radians(alpha * i)) * r, sin(radians(alpha * i)) * r, 0);
+
+	mMesh = MbR::generateIndexMbR(p, m, perfil);
+}
+
+RevSphere::~RevSphere()
+{
+	delete mMesh;
+	mMesh = nullptr;
+}
+
+void RevSphere::render(glm::dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr)
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		upload(aMat);
+
+		mMesh->render();
+	}
+}

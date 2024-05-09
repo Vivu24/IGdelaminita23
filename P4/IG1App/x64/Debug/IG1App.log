@@ -1,9 +1,11 @@
-﻿  Scene.cpp
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Scene.cpp(42,25): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Scene.cpp(42,20): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Scene.cpp(42,15): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Scene.cpp(114,25): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Scene.cpp(114,20): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Scene.cpp(114,15): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Scene.cpp(126,41): warning C4244: 'argumento': conversión de 'double' a 'GLuint'; posible pérdida de datos
+﻿  Mesh.cpp
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Mesh.cpp(88,20): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Mesh.cpp(309,23): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Mesh.cpp(414,20): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Mesh.cpp(418,20): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Mesh.cpp(423,20): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Mesh.cpp(462,20): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Mesh.cpp(479,20): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Mesh.cpp(497,21): warning C4553: "==": el resultado de la expresión no se usa. ¿Quiso decir "="?
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Mesh.cpp(512,20): warning C4018: '<': no coinciden signed/unsigned
   IG1App.vcxproj -> C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\bin\IG1AppDebug.exe

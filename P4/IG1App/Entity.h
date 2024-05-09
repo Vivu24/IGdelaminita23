@@ -244,4 +244,12 @@ public:
 
 	glm::vec3 calculoVectorNormalPorNewell(Cara c);
 };
+
+class RevSphere : public Abs_Entity
+{
+public:
+	explicit RevSphere(GLint r, GLint p, GLint m);
+	~RevSphere();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+};
 #endif //_H_Entities_H_

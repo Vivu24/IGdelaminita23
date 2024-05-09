@@ -116,16 +116,9 @@ Scene::setScene(GLint id) {
 	gObjects.push_back(new EjesRGB(400.0));
 
 	if (id == 0) { // APARTADO 66
-		CompoundEntity* inventedNode = new CompoundEntity();
-		RGBTriangle* tr = new RGBTriangle(50.0);
+		/*Abs_Entity* sphere = new RevSphere(200, 9, 20);
 
-		inventedNode->addEntity(tr);
-		tr->setModelMat(glm::translate(inventedNode->modelMat(),
-			dvec3(200, 0, 0)));
-
-		gObjects.push_back(new RegularPolygon(100.0, 200.0, 1.0, 1.0, 1.0, 1.0));
-		gObjects.push_back(new RGBRectangle(400.0, 150.0));
-		gObjects.push_back(inventedNode);
+		gObjects.push_back(sphere);*/
 	}
 	else if (id == 1) {
 		glClearColor(0, 0, 0, 1);

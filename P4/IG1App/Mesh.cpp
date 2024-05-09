@@ -389,71 +389,30 @@ IndexMesh* IndexMesh::generateIndexedBox(GLdouble l)
 	mesh->mNumVertices = 8;
 	mesh->vVertices.reserve(mesh->mNumVertices);
 
-	mesh->vVertices.emplace_back(l, l, -l); 
-	mesh->vVertices.emplace_back(l, -l, -l); 
-	mesh->vVertices.emplace_back(-l, -l, -l); 
-	mesh->vVertices.emplace_back(-l, l, -l); 
+	mesh->vVertices.emplace_back(-l, l, l); 
+	mesh->vVertices.emplace_back(-l, -l, l); 
 	mesh->vVertices.emplace_back(l, l, l); 
 	mesh->vVertices.emplace_back(l, -l, l); 
-	mesh->vVertices.emplace_back(-l, -l, l); 
-	mesh->vVertices.emplace_back(-l, l, l);
+	mesh->vVertices.emplace_back(l, l, -l); 
+	mesh->vVertices.emplace_back(l, -l, -l); 
+	mesh->vVertices.emplace_back(-l, l, -l); 
+	mesh->vVertices.emplace_back(-l, -l, -l);
 
 	mesh->nNumIndices = 36;
 	mesh->vIndexes = new GLuint[mesh->nNumIndices];
 
-	// 1
-	mesh->vIndexes[0] = 0;
-	mesh->vIndexes[1] = 3;
-	mesh->vIndexes[2] = 2;
+	const GLuint arr[36] =
+	{
+		0, 1, 2, 1, 3, 2, 2, 3, 4,
+		3, 5, 4, 4, 5, 6, 5, 7, 6,
 
-	mesh->vIndexes[3] = 0;
-	mesh->vIndexes[4] = 2;
-	mesh->vIndexes[5] = 1;
+		//6, 7, 0, 7, 1, 0,
 
-	// 2
-	mesh->vIndexes[6] = 4;
-	mesh->vIndexes[7] = 5;
-	mesh->vIndexes[8] = 6;
-
-	mesh->vIndexes[9] = 4;
-	mesh->vIndexes[10] = 6;
-	mesh->vIndexes[11] = 7;
-
-	// 3
-	mesh->vIndexes[12] = 0;
-	mesh->vIndexes[13] = 4;
-	mesh->vIndexes[14] = 7;
-
-	mesh->vIndexes[15] = 0;
-	mesh->vIndexes[16] = 7;
-	mesh->vIndexes[17] = 3;
-
-	// 4
-	mesh->vIndexes[18] = 1;
-	mesh->vIndexes[19] = 2;
-	mesh->vIndexes[20] = 6;
-
-	mesh->vIndexes[21] = 1;
-	mesh->vIndexes[22] = 6;
-	mesh->vIndexes[23] = 5;
-
-	// 5
-	mesh->vIndexes[24] = 0;
-	mesh->vIndexes[25] = 1;
-	mesh->vIndexes[26] = 5;
-
-	mesh->vIndexes[27] = 0;
-	mesh->vIndexes[28] = 5;
-	mesh->vIndexes[29] = 4;
-
-	// 6
-	mesh->vIndexes[30] = 2;
-	mesh->vIndexes[31] = 3;
-	mesh->vIndexes[32] = 7;
-
-	mesh->vIndexes[33] = 2;
-	mesh->vIndexes[34] = 7;
-	mesh->vIndexes[35] = 6;
+		0, 6, 1, 6, 7, 1,
+		0, 2, 4, 4, 6, 0, 1, 5, 3, 1, 7, 5
+	};
+	for (int i = 0; i < mesh->nNumIndices; i++)
+		mesh->vIndexes[i] = arr[i];
 
 	mesh->vColors.reserve(mesh->mNumVertices);
 	for (int i = 0; i < mesh->mNumVertices; i++)
@@ -487,11 +446,105 @@ glm::dvec3 IndexMesh::calculoVectorNormalPorNewell(Cara C) {
 
 void IndexMesh::buildNormalVectors()
 {
-	int i = 0;
-	vNormals.resize(vCaras.size());
+	/*int i = 0;
+	vNormals.resize(nNumIndices);
+	for (int i = 0; i < mNumVertices; i++)
+		vNormals.emplace_back(0, 0, 0);
 	for (const auto cara : vCaras)
 	{
 		vNormals[i] = calculoVectorNormalPorNewell(cara);
 		i++;
+	}*/
+	vNormals.resize(mNumVertices);
+
+	std::vector<glm::dvec3> vAuxNormals = vNormals; // vector auxiliar
+
+	for (int i = 0; i < nNumIndices / 3; i++)
+	{
+		glm::dvec3 v0 = vVertices[vIndexes[i * 3]];
+		glm::dvec3 v1 = vVertices[vIndexes[i * 3 + 1]];
+		glm::dvec3 v2 = vVertices[vIndexes[i * 3 + 2]];
+
+		glm::dvec3 v = v1 - v0;
+		glm::dvec3 w = v2 - v0;
+
+		const glm::dvec3 n = normalize(cross(v, w));
+
+
+		vAuxNormals[vIndexes[i * 3]] += n;
+		vAuxNormals[vIndexes[i * 3 + 1]] += n;
+		vAuxNormals[vIndexes[i * 3 + 2]] += n;
 	}
+
+	for (int i = 0; i < mNumVertices; i++)
+		vNormals[i] = normalize(vAuxNormals[i]);
+}
+
+MbR::MbR(GLint mm, GLint mn, glm::dvec3* perfil) :
+	m(mm),
+	n(mn),
+	perfil(perfil)
+{
+	
+}
+
+MbR* MbR::generateIndexMbR(GLint mm, GLint mn, glm::dvec3* perfil)
+{
+	MbR* mesh = new MbR(mm, mn, perfil);
+	// Definir la primitiva como GL_TRIANGLES
+	mesh->mPrimitive = GL_TRIANGLES;
+	// Definir el número de vértices como nn*mm
+	mesh->mNumVertices == mn * mm;
+	// Usar un vector auxiliar de vértices
+	auto vs = new dvec3[mesh->mNumVertices];
+	for (int i = 0; i < mn; i++) {
+		// Generar la muestra i- ésima de vértices
+		GLdouble theta = i * 360 / mn;
+		GLdouble c = cos(radians(theta));
+		GLdouble s = sin(radians(theta));
+		for (int j = 0; j < mm; j++) {
+			GLdouble z = -s * perfil[j].x + c * perfil[j].z;
+			GLdouble x = c * perfil[j].x + s * perfil[j].z;
+			int indice = i * mm + j;
+			vs[indice] = dvec3(x, perfil[j].y, z);
+		}
+	}
+	for (int i = 0; i < mesh->mNumVertices; i++)
+		mesh->vVertices.push_back(vs[i]);
+
+	int indiceMayor = 0;
+	mesh->vIndexes = new GLuint[mesh->nNumIndices];
+	/*for (int i = 0; i < mesh->nNumIndices; i++)
+		mesh->vIndexes[i] = 0;*/
+	// El contador i recorre las muestras alrededor del eje Y
+	for (int i = 0; i < mn; i++) {
+		// El contador j recorre los vértices del perfil ,
+		// de abajo arriba . Las caras cuadrangulares resultan
+		// al unir la muestra i- ésima con la (i +1)% nn - ésima
+		for (int j = 0; j < mm - 1; j++) {
+			// El contador indice sirve para llevar cuenta
+			// de los índices generados hasta ahora . Se recorre
+			// la cara desde la esquina inferior izquierda
+			int indice = i * mm + j;
+
+			mesh->vIndexes[indiceMayor] = indice;
+			indiceMayor++;
+			mesh->vIndexes[indiceMayor] = (indice + mm) % (mn * mm);
+			indiceMayor++;
+			mesh->vIndexes[indiceMayor] = (indice + mm + 1) % (mn * mm);
+			indiceMayor++;
+
+			mesh->vIndexes[indiceMayor] = (indice + mm + 1) % (mn * mm);
+			indiceMayor++;
+			mesh->vIndexes[indiceMayor] = (indice + mm) % (mn * mm);
+			indiceMayor++;
+			mesh->vIndexes[indiceMayor] = indice;
+			indiceMayor++;
+		}
+	}
+
+	mesh->vNormals.reserve(mesh->mNumVertices);
+	mesh->buildNormalVectors();
+
+	return mesh;
 }

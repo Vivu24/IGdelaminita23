@@ -63,4 +63,16 @@ public:
 	glm::dvec3 calculoVectorNormalPorNewell(Cara c);
 };
 
+class MbR : public IndexMesh
+{
+protected:
+	GLint m; // de abajo a arriba, sentido antihorario
+	GLint n;
+	glm::dvec3* perfil;
+
+public:
+	MbR(GLint mm, GLint mn, glm::dvec3* perfil);
+	~MbR() override = default;
+	static MbR* generateIndexMbR(GLint mm, GLint mn, glm::dvec3* perfil);
+};
 #endif //_H_Scene_H_
