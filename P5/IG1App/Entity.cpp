@@ -412,9 +412,9 @@ Photo::update() {
 }
 
 QuadricEntity::QuadricEntity() :
-	red(),
-	green(),
-	blue()
+	red(0),
+	green(0),
+	blue(0)
 {
 	obj = gluNewQuadric();
 }
@@ -454,8 +454,8 @@ void Sphere::render(glm::dmat4 const& modelViewMat) const
 		gluQuadricDrawStyle(obj, GLU_FILL);
 
 		gluSphere(obj, r, 50, 50);
-		//glColor3f(1.0, 1.0, 1.0);
 		glDisable(GL_COLOR_MATERIAL);
+		glColor3f(1.0, 1.0, 1.0);
 
 	}
 }
@@ -608,11 +608,19 @@ void IndexedBox::render(glm::dmat4 const& modelViewMat) const
 	if (mMesh != nullptr)
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glLineWidth(2);
+
+		if (mColor.a != 0) {
+			glColor4f(mColor.r, mColor.g, mColor.b, mColor.a);
+		}
 
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		upload(aMat);
-
 		mMesh->render();
+
+		glColor4f(0, 0, 0, 0);
+		glLineWidth(1);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 }
 
@@ -737,12 +745,14 @@ void RevSphere::render(glm::dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr)
 	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 		if (mat != nullptr)
 		{
-			glEnable(GL_COLOR_MATERIAL);
+			glColor3f(mColor.r, mColor.g, mColor.b);
 			mat->upload();
 		}
-		else {
+		if (mColor.a != 0) {
 			glColor4f(mColor.r, mColor.g, mColor.b, mColor.a);
 		}
 
@@ -750,10 +760,11 @@ void RevSphere::render(glm::dmat4 const& modelViewMat) const
 		upload(aMat);
 		mMesh->render();
 
+		glColor3f(1.0, 1.0, 1.0);
 		glColor4f(0, 0, 0, 0);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		if (mat != nullptr) {
 			mat->reset();
-			glDisable(GL_COLOR_MATERIAL);
 		}
 	}
 }
@@ -780,18 +791,18 @@ void RevToroid::render(glm::dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr)
 	{
-		glEnable(GL_COLOR_MATERIAL);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		if (mColor.a != 0)
+			glColor4d(mColor.r, mColor.g, mColor.b, mColor.a);
 
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		upload(aMat);
-		if (mColor.a != 0)
-			glColor4d(mColor.r, mColor.g, mColor.b, mColor.a);
 		glLineWidth(2);
-		glPolygonMode(GL_FRONT, GL_FILL);
 		mMesh->render();
+
 		glLineWidth(1);
-		glColor4d(1, 1, 1, 0);
-		glDisable(GL_COLOR_MATERIAL);
+		glColor4f(0, 0, 0, 0);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 }
 

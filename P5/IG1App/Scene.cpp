@@ -15,8 +15,13 @@ Scene::init()
 	
 	// Textures
 	loadTextures();
+	setLights();
+	dirLight->disable();
+	posLight->disable();
+	spotLight->disable();
 
-	setScene(3);
+	setScene(0);
+
 }
 void
 Scene::freeObjects()
@@ -26,12 +31,12 @@ Scene::freeObjects()
 		el = nullptr;
 	}
 
-	delete dirLight;
+	/*delete dirLight;
 	dirLight = nullptr;
 	delete posLight;
 	posLight = nullptr;
 	delete spotLight;
-	spotLight = nullptr;
+	spotLight = nullptr;*/
 	delete foco;
 	foco = nullptr;
 
@@ -54,9 +59,8 @@ Scene::setGL()
 	glEnable(GLUT_MULTISAMPLE);
 	glEnable(GL_BLEND);
 	glEnable(GL_COLOR_MATERIAL);		// Apartado 56
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//glEnable(GL_NORMALIZE);
-	//glEnable(GL_LIGHTING);
+	glEnable(GL_NORMALIZE);
+	glEnable(GL_LIGHTING);
 }
 void
 Scene::resetGL()
@@ -67,7 +71,7 @@ Scene::resetGL()
 	glDisable(GLUT_MULTISAMPLE);
 	glDisable(GL_BLEND);
 	glDisable(GL_COLOR_MATERIAL);		// Apartado 56
-	//glDisable(GL_NORMALIZE);
+	glDisable(GL_NORMALIZE);
 }
 
 void 
@@ -160,7 +164,10 @@ void
 Scene::setScene(GLint id) {
 	mId = id;
 
-	glDisable(GL_LIGHTING);
+	//glDisable(GL_LIGHTING);
+	spotLight->enable();
+	posLight->enable();
+	dirLight->enable();
 
 	freeObjects();
 	glClearColor(0.6, 0.7, 0.8, 1.0);
@@ -170,23 +177,21 @@ Scene::setScene(GLint id) {
 	if (id == 0) { // APARTADO 66
 		EntityWithMaterial* sphere_0 = new RevSphere(150, 50, 50);
 		sphere_0->setModelMat(translate(sphere_0->modelMat(), dvec3(0, 0, 300)));
+		sphere_0->setColor(1, 0, 0, 1);
 
 		Material* m = new Material();
 		m->setGold();
 		sphere_0->setMaterial(m);
 
-		EntityWithMaterial* sphere_1 = new RevSphere(150, 50, 50);
+		QuadricEntity* sphere_1 = new Sphere(150);
 		sphere_1->setModelMat(translate(sphere_1->modelMat(), dvec3(300, 0, 0)));
-
-		//sphere_1->setColor(1, 1, 0, 1);
+		sphere_1->setColor(1, 0, 0, 1);
 
 		gObjects.push_back(sphere_0);
 		gObjects.push_back(sphere_1);
 	}
 	else if (id == 1) {
 		glClearColor(0, 0, 0, 1);
-
-		setLights();
 
 		foco = new SpotLight();
 		fvec4 ambient = { 0, 0, 0, 1 };
@@ -206,13 +211,14 @@ Scene::setScene(GLint id) {
 		CompoundEntity* tie = new AdvancedTIE(gTextures[NOCHE]);
 		node->addEntity(tie);
 		node->setModelMat(glm::translate(node->modelMat(), dvec3(0, 0, 0)));
-		foco->setSpot(node->pos + dvec3(0.0 , 100.0, 0.0), 180.0, 0.0);
+		//foco->setSpot(node->pos + dvec3(0.0 , 100.0, 0.0), 180.0, 0.0);
 
 		gObjects.push_back(planeta);
 		gObjects.push_back(node);
 	}
 	else if (id == 2) {
 		Abs_Entity* s = new IndexedBox(200.0);
+		s->setColor(0, 1, 0, 1);
 		gObjects.push_back(s);
 	}
 	else if (id == 3) {
