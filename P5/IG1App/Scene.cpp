@@ -185,7 +185,7 @@ Scene::setScene(GLint id) {
 
 		QuadricEntity* sphere_1 = new Sphere(150);
 		sphere_1->setModelMat(translate(sphere_1->modelMat(), dvec3(300, 0, 0)));
-		sphere_1->setColor(1, 0, 0, 1);
+		sphere_1->setRGB(1, 0, 0);
 
 		gObjects.push_back(sphere_0);
 		gObjects.push_back(sphere_1);
