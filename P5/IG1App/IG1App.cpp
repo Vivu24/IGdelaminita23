@@ -181,6 +181,16 @@ IG1App::key(unsigned char key, int x, int y)
 			mScene->setScene(3);
 			mCamera->set3D();
 			break;
+		case '5':
+			stop();
+			mScene->setScene(4);
+			mCamera->set3D();
+			break;
+		case '6':
+			stop();
+			mScene->setScene(5);
+			mCamera->set3D();
+			break;
 		case 'u':
 			mScene->update();
 			break;

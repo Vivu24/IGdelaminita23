@@ -16,7 +16,7 @@ protected:
 public:
 	Light();
 	virtual ~Light() { disable(); }
-	void uploadL();
+	void uploadL() const;
 	// Método abstracto
 	virtual void upload(glm::dmat4 const& modelViewMat) = 0;
 	void disable();

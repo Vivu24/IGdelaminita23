@@ -11,7 +11,7 @@ Light::Light() {
 	}
 };
 
-void Light::uploadL() {
+void Light::uploadL() const {
 	// Transfiere las características de la luz a la GPU
 	glLightfv(id, GL_AMBIENT, value_ptr(ambient));
 	glLightfv(id, GL_DIFFUSE, value_ptr(diffuse));

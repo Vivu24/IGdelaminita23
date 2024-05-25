@@ -1,12 +1,91 @@
-﻿  Scene.cpp
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(47,25): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(47,20): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(47,15): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(159,25): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(159,20): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(159,15): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(204,58): warning C4244: 'argumento': conversión de 'double' a 'GLint'; posible pérdida de datos
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(204,52): warning C4244: 'argumento': conversión de 'double' a 'GLint'; posible pérdida de datos
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(204,45): warning C4244: 'argumento': conversión de 'double' a 'GLint'; posible pérdida de datos
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(204,39): warning C4244: 'argumento': conversión de 'double' a 'GLint'; posible pérdida de datos
+﻿  Entity.cpp
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(411,35): warning C4244: 'argumento': conversión de 'double' a 'GLsizei'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(411,28): warning C4244: 'argumento': conversión de 'double' a 'GLsizei'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(453,25): warning C4244: 'argumento': conversión de 'const GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(453,18): warning C4244: 'argumento': conversión de 'const GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(453,13): warning C4244: 'argumento': conversión de 'const GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(483,25): warning C4244: 'argumento': conversión de 'const GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(483,18): warning C4244: 'argumento': conversión de 'const GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(483,13): warning C4244: 'argumento': conversión de 'const GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(512,25): warning C4244: 'argumento': conversión de 'const GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(512,18): warning C4244: 'argumento': conversión de 'const GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(512,13): warning C4244: 'argumento': conversión de 'const GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(543,25): warning C4244: 'argumento': conversión de 'GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(543,18): warning C4244: 'argumento': conversión de 'GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(543,13): warning C4244: 'argumento': conversión de 'GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(613,40): warning C4244: 'argumento': conversión de 'const T' a 'GLfloat'; posible pérdida de datos
+          with
+          [
+              T=glm::f64
+          ]
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(613,30): warning C4244: 'argumento': conversión de 'const T' a 'GLfloat'; posible pérdida de datos
+          with
+          [
+              T=glm::f64
+          ]
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(613,20): warning C4244: 'argumento': conversión de 'const T' a 'GLfloat'; posible pérdida de datos
+          with
+          [
+              T=glm::f64
+          ]
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(779,40): warning C4244: 'argumento': conversión de 'const T' a 'GLfloat'; posible pérdida de datos
+          with
+          [
+              T=glm::f64
+          ]
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(779,30): warning C4244: 'argumento': conversión de 'const T' a 'GLfloat'; posible pérdida de datos
+          with
+          [
+              T=glm::f64
+          ]
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(779,20): warning C4244: 'argumento': conversión de 'const T' a 'GLfloat'; posible pérdida de datos
+          with
+          [
+              T=glm::f64
+          ]
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(810,40): warning C4244: 'argumento': conversión de 'const T' a 'GLfloat'; posible pérdida de datos
+          with
+          [
+              T=glm::f64
+          ]
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(810,30): warning C4244: 'argumento': conversión de 'const T' a 'GLfloat'; posible pérdida de datos
+          with
+          [
+              T=glm::f64
+          ]
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(810,20): warning C4244: 'argumento': conversión de 'const T' a 'GLfloat'; posible pérdida de datos
+          with
+          [
+              T=glm::f64
+          ]
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(856,40): warning C4244: 'argumento': conversión de 'const T' a 'GLfloat'; posible pérdida de datos
+          with
+          [
+              T=glm::f64
+          ]
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(856,30): warning C4244: 'argumento': conversión de 'const T' a 'GLfloat'; posible pérdida de datos
+          with
+          [
+              T=glm::f64
+          ]
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(856,20): warning C4244: 'argumento': conversión de 'const T' a 'GLfloat'; posible pérdida de datos
+          with
+          [
+              T=glm::f64
+          ]
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(888,40): warning C4244: 'argumento': conversión de 'const T' a 'GLfloat'; posible pérdida de datos
+          with
+          [
+              T=glm::f64
+          ]
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(888,30): warning C4244: 'argumento': conversión de 'const T' a 'GLfloat'; posible pérdida de datos
+          with
+          [
+              T=glm::f64
+          ]
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Entity.cpp(888,20): warning C4244: 'argumento': conversión de 'const T' a 'GLfloat'; posible pérdida de datos
+          with
+          [
+              T=glm::f64
+          ]
   IG1App.vcxproj -> C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\bin\IG1AppDebug.exe

@@ -202,17 +202,31 @@ Scene::setScene(GLint id) {
 	}
 	else if (id == 3) {
 		Abs_Entity* toroide = new RevToroid(50.0, 100.0, 50.0, 50.0);
-		QuadricEntity* planeta = new Sphere(25.0);
-		planeta->setRGB(1, 0.8, 0);
-		planeta->setModelMat(translate(planeta->modelMat(), dvec3(100.0, 0.0, .0)));
+		CompoundEntity* nave = new AdvancedTIE(gTextures[NOCHE]);
 
 		toroide->setColor(0, 0, 1, 1);
-		gObjects.push_back(toroide);
-		CompoundEntity* node = new CompoundEntity();
 
-		node->addEntity(planeta);
-		gObjects.push_back(node);
+		nave->setModelMat(translate(nave->modelMat(), dvec3(100.0, 0.0, .0)) * scale(dmat4(1), dvec3(0.1, 0.1, 0.1)));
+		
+		gObjects.push_back(toroide); // gObjects[1]
+
+		CompoundEntity* node = new CompoundEntity();
+		node->addEntity(nave);
+
+		gObjects.push_back(node); // gObjects[2]
 	}
+	else if (id == 4) {
+		Abs_Entity* s = new IndexRomboid(200.0);
+		//s->setColor(0, 1, 0, 1);
+		gObjects.push_back(s);
+	}
+	else if (id == 5) {
+		//Abs_Entity* s = new IndexedPyrimid(200.0);
+		CompoundEntity* superPiramide = new SuperPyrimid();
+		//s->setColor(0, 1, 0, 1);
+		gObjects.push_back(superPiramide);
+	}
+
 }
 
 void Scene::enableDirLight()

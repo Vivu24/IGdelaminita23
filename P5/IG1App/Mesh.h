@@ -59,6 +59,8 @@ public:
 	virtual void draw() const;
 
 	static IndexMesh* generateIndexedBox(GLdouble l);	// Apartado 63
+	static IndexMesh* generateIndexedRomboid(GLdouble l);
+	static IndexMesh* generateIndexedPyramid(GLdouble l);
 	void buildNormalVectors();		// Apartado 65
 	glm::dvec3 calculoVectorNormalPorNewell(Cara c);
 };

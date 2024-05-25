@@ -708,10 +708,14 @@ AdvancedTIE::AdvancedTIE(Texture* t)
 	addEntity(nucleo);
 	addEntity(palo);
 
-	foco = new SpotLight(fvec3(0, 0, 0));
+	/*foco = new SpotLight(fvec3(0, 0, 0));
 	foco->setAmb({ 0.1, 0.1, 0.1, 1 });
 	foco->setDiff({ 1, 1, 1, 1 });
-	foco->setSpec({ 0.5, 0.5, 0.5, 1 });
+	foco->setSpec({ 0.5, 0.5, 0.5, 1 });*/
+	luz = new SpotLight();
+	/*luz->setAmb({ 0.1, 0.1, 0.1, 1 });
+	luz->setDiff({ 1, 1, 1, 1 });
+	luz->setSpec({ 0.5, 0.5, 0.5, 1 }); */
 }
 
 AdvancedTIE::~AdvancedTIE()
@@ -721,14 +725,18 @@ AdvancedTIE::~AdvancedTIE()
 		g = nullptr;
 	}
 
-	delete foco;
-	foco = nullptr;
+	/*delete foco;
+	foco = nullptr;*/
+	delete luz;
+	luz = nullptr;
+
 }
 
 void AdvancedTIE::render(glm::dmat4 const& modelViewMat) const
 {
 	CompoundEntity::render(modelViewMat);
-	foco->upload(modelViewMat * mModelMat);
+	//foco->upload(modelViewMat * mModelMat);
+	luz->upload(modelViewMat * mModelMat);
 }
 
 RevSphere::RevSphere(GLint r, GLint p, GLint m)
@@ -824,4 +832,112 @@ EntityWithMaterial::~EntityWithMaterial()
 	mMesh = nullptr;
 	delete mat;
 	mat = nullptr;
+}
+
+IndexRomboid::IndexRomboid(GLdouble l)
+{
+	mMesh = IndexMesh::generateIndexedRomboid(l);
+}
+
+IndexRomboid::~IndexRomboid()
+{
+	delete mMesh;
+	mMesh = nullptr;
+}
+
+void IndexRomboid::render(glm::dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr)
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glLineWidth(2);
+
+		if (mColor.a != 0) {
+			glColor3f(mColor.r, mColor.g, mColor.b);
+		}
+
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		upload(aMat);
+		mMesh->render();
+
+		glColor4f(0, 0, 0, 0);
+		glLineWidth(1);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+}
+
+IndexedPyrimid::IndexedPyrimid(GLdouble l)
+{
+	mMesh = IndexMesh::generateIndexedPyramid(l);
+}
+
+IndexedPyrimid::~IndexedPyrimid()
+{
+	delete mMesh;
+	mMesh = nullptr;
+}
+
+void IndexedPyrimid::render(glm::dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr)
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glLineWidth(2);
+
+		if (mColor.a != 0) {
+			glColor3f(mColor.r, mColor.g, mColor.b);
+		}
+
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		upload(aMat);
+		mMesh->render();
+
+		glColor4f(0, 0, 0, 0);
+		glLineWidth(1);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+}
+
+SuperPyrimid::SuperPyrimid()
+{
+	Abs_Entity* p1 = new IndexedPyrimid(50.0);
+	Abs_Entity* p2 = new IndexedPyrimid(50.0);
+	Abs_Entity* p3 = new IndexedPyrimid(50.0);
+	Abs_Entity* p4 = new IndexedPyrimid(50.0);
+	Abs_Entity* p5 = new IndexedPyrimid(50.0);
+	Abs_Entity* p6 = new IndexedPyrimid(50.0);
+
+
+	/*p1->setModelMat(glm::translate(glm::dmat4(1), dvec3(0.0, 75.0, .0))
+		* glm::translate(glm::dmat4(1), dvec3(0.0, .0, 25.0))
+		* glm::rotate(glm::dmat4(1), radians(45.0), dvec3(1.0, .0, .0)));*/
+	p1->setModelMat(glm::translate(glm::dmat4(1), dvec3(100.0, 0.0, 100.0)));
+	p2->setModelMat(glm::translate(glm::dmat4(1), dvec3(0, 0.0, 0)));
+	p3->setModelMat(glm::translate(glm::dmat4(1), dvec3(100, 0.0, 0)));
+	p4->setModelMat(glm::translate(glm::dmat4(1), dvec3(0, 0.0, 100.0)));
+
+	p5->setModelMat(glm::translate(glm::dmat4(1), dvec3(50.0, 100.0, 50.0))
+		* glm::rotate(glm::dmat4(1), radians(180.0), dvec3(1.0, .0, .0)));
+
+	p6->setModelMat(glm::translate(glm::dmat4(1), dvec3(50, 100.0, 50.0)));
+
+	addEntity(p1);
+	addEntity(p2);
+	addEntity(p3);
+	addEntity(p4);
+	addEntity(p5);
+	addEntity(p6);
+}
+
+SuperPyrimid::~SuperPyrimid()
+{
+	for (auto& g : gObjects) {
+		delete g;
+		g = nullptr;
+	}
+}
+
+void SuperPyrimid::render(glm::dmat4 const& modelViewMat) const
+{
+	CompoundEntity::render(modelViewMat);
 }

@@ -224,6 +224,7 @@ public:
 
 private:
 	SpotLight* foco;
+	SpotLight* luz;
 };
 
 class WingAdvancedTIE : public CompoundEntity {
@@ -239,12 +240,38 @@ public:
 	~Morro();
 	void render(glm::dmat4 const& modelViewMat) const override;
 };
+class SuperPyrimid : public CompoundEntity {
+public:
+	SuperPyrimid();
+	~SuperPyrimid();
+	void render(glm::dmat4 const& modelViewMat) const override;
+};
 
 class IndexedBox : public Abs_Entity
 {
 public:
 	explicit IndexedBox(GLdouble l);
 	~IndexedBox();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+
+	glm::vec3 calculoVectorNormalPorNewell(Cara c);
+};
+
+class IndexRomboid : public Abs_Entity
+{
+public:
+	explicit IndexRomboid(GLdouble l);
+	~IndexRomboid();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+
+	glm::vec3 calculoVectorNormalPorNewell(Cara c);
+};
+
+class IndexedPyrimid : public Abs_Entity
+{
+public:
+	explicit IndexedPyrimid(GLdouble l);
+	~IndexedPyrimid();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 
 	glm::vec3 calculoVectorNormalPorNewell(Cara c);

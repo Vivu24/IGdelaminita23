@@ -445,6 +445,105 @@ IndexMesh* IndexMesh::generateIndexedBox(GLdouble l)
 	return mesh;
 }
 
+IndexMesh* IndexMesh::generateIndexedRomboid(GLdouble l)
+{
+	const auto mesh = new IndexMesh();
+
+	mesh->mPrimitive = GL_TRIANGLES;
+	mesh->mNumVertices = 6;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+
+	mesh->vVertices.emplace_back(0, l*2, 0);		//0
+	mesh->vVertices.emplace_back(l, 0, l);		//1
+	mesh->vVertices.emplace_back(l, 0, -l);		//2
+	mesh->vVertices.emplace_back(-l, 0, -l);	//3
+	mesh->vVertices.emplace_back(-l, 0, l);		//4
+	mesh->vVertices.emplace_back(0, -l*2, 0);		//5
+
+	mesh->nNumIndices = 24;
+	mesh->vIndexes = new GLuint[mesh->nNumIndices];
+
+	const GLuint arr[24] =
+	{
+		1,0,4,
+		4,0,3,
+		3,5,4,
+		4,5,1,
+		1,5,2,
+		2,5,3,
+		3,0,2,
+		2,0,1
+
+	};
+	for (int i = 0; i < mesh->nNumIndices; i++)
+		mesh->vIndexes[i] = arr[i];
+
+	mesh->vColors.reserve(mesh->mNumVertices);
+	for (int i = 0; i < mesh->mNumVertices; i++)
+		mesh->vColors.emplace_back(0, 1, 0, 1);
+
+	int verticesPorCara = 3;
+	mesh->vCaras.resize(mesh->nNumIndices / verticesPorCara);
+	for (int i = 0; i < mesh->nNumIndices / verticesPorCara; i++)
+	{
+		mesh->vCaras[i] = Cara(mesh->vIndexes[i * verticesPorCara],
+			mesh->vIndexes[i * verticesPorCara + 1],
+			mesh->vIndexes[i * verticesPorCara + 2]);
+	}
+
+	mesh->buildNormalVectors();
+
+	return mesh;
+}
+
+IndexMesh* IndexMesh::generateIndexedPyramid(GLdouble l)
+{
+	const auto mesh = new IndexMesh();
+
+	mesh->mPrimitive = GL_TRIANGLES;
+	mesh->mNumVertices = 5;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+
+	mesh->vVertices.emplace_back(0, l * 2, 0);		//0
+	mesh->vVertices.emplace_back(l, 0, l);		//1
+	mesh->vVertices.emplace_back(l, 0, -l);		//2
+	mesh->vVertices.emplace_back(-l, 0, -l);	//3
+	mesh->vVertices.emplace_back(-l, 0, l);		//4
+
+	mesh->nNumIndices = 18;
+	mesh->vIndexes = new GLuint[mesh->nNumIndices];
+
+	const GLuint arr[18] =
+	{
+		0,4,1,
+		1,4,2,
+		2,3,0,
+		0,3,4,
+		4,3,2,
+		2,0,1
+
+	};
+	for (int i = 0; i < mesh->nNumIndices; i++)
+		mesh->vIndexes[i] = arr[i];
+
+	mesh->vColors.reserve(mesh->mNumVertices);
+	for (int i = 0; i < mesh->mNumVertices; i++)
+		mesh->vColors.emplace_back(0, 1, 0, 1);
+
+	int verticesPorCara = 3;
+	mesh->vCaras.resize(mesh->nNumIndices / verticesPorCara);
+	for (int i = 0; i < mesh->nNumIndices / verticesPorCara; i++)
+	{
+		mesh->vCaras[i] = Cara(mesh->vIndexes[i * verticesPorCara],
+			mesh->vIndexes[i * verticesPorCara + 1],
+			mesh->vIndexes[i * verticesPorCara + 2]);
+	}
+
+	mesh->buildNormalVectors();
+
+	return mesh;
+}
+
 glm::dvec3 IndexMesh::calculoVectorNormalPorNewell(Cara C) {
 	glm::dvec3 n = { 0.0, 0.0, 0.0 };
 	for (int i = 0; i < C.numVertices; ++i) {
