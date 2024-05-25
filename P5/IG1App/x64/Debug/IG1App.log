@@ -1,12 +1,12 @@
 ﻿  Scene.cpp
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(56,25): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(56,20): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(56,15): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(173,25): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(173,20): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(173,15): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(225,58): warning C4244: 'argumento': conversión de 'double' a 'GLint'; posible pérdida de datos
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(225,52): warning C4244: 'argumento': conversión de 'double' a 'GLint'; posible pérdida de datos
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(225,45): warning C4244: 'argumento': conversión de 'double' a 'GLint'; posible pérdida de datos
-C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(225,39): warning C4244: 'argumento': conversión de 'double' a 'GLint'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(47,25): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(47,20): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(47,15): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(159,25): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(159,20): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(159,15): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(204,58): warning C4244: 'argumento': conversión de 'double' a 'GLint'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(204,52): warning C4244: 'argumento': conversión de 'double' a 'GLint'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(204,45): warning C4244: 'argumento': conversión de 'double' a 'GLint'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\IG1App\Scene.cpp(204,39): warning C4244: 'argumento': conversión de 'double' a 'GLint'; posible pérdida de datos
   IG1App.vcxproj -> C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P5\bin\IG1AppDebug.exe

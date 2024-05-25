@@ -456,7 +456,6 @@ void Sphere::render(glm::dmat4 const& modelViewMat) const
 		gluSphere(obj, r, 50, 50);
 		glDisable(GL_COLOR_MATERIAL);
 		glColor3f(1.0, 1.0, 1.0);
-
 	}
 }
 
@@ -611,7 +610,7 @@ void IndexedBox::render(glm::dmat4 const& modelViewMat) const
 		glLineWidth(2);
 
 		if (mColor.a != 0) {
-			glColor4f(mColor.r, mColor.g, mColor.b, mColor.a);
+			glColor3f(mColor.r, mColor.g, mColor.b);
 		}
 
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
@@ -708,6 +707,11 @@ AdvancedTIE::AdvancedTIE(Texture* t)
 	addEntity(morro);
 	addEntity(nucleo);
 	addEntity(palo);
+
+	foco = new SpotLight(fvec3(0, 0, 0));
+	foco->setAmb({ 0.1, 0.1, 0.1, 1 });
+	foco->setDiff({ 1, 1, 1, 1 });
+	foco->setSpec({ 0.5, 0.5, 0.5, 1 });
 }
 
 AdvancedTIE::~AdvancedTIE()
@@ -716,20 +720,26 @@ AdvancedTIE::~AdvancedTIE()
 		delete g;
 		g = nullptr;
 	}
+
+	delete foco;
+	foco = nullptr;
 }
 
 void AdvancedTIE::render(glm::dmat4 const& modelViewMat) const
 {
 	CompoundEntity::render(modelViewMat);
+	foco->upload(modelViewMat * mModelMat);
 }
 
 RevSphere::RevSphere(GLint r, GLint p, GLint m)
 {
 	dvec3* perfil = new dvec3[p];
+	GLdouble alpha = 270.0;
+	GLdouble aux = 180.0 / (p - 1);
 
 	for (int i = 0; i < p; i++) {
-		double alpha = i * radians(180.0 / (p - 1)) + radians(90.0);
-		perfil[i] = dvec3(glm::cos(alpha) * r, sin(alpha) * r, 0);
+		perfil[i] = glm::dvec3(r * cos(glm::radians(alpha)), r * sin(glm::radians(alpha)), 0.0);
+		alpha += aux;
 	}
 
 	mMesh = MbR::generateIndexMbR(p, m, perfil);
@@ -737,6 +747,8 @@ RevSphere::RevSphere(GLint r, GLint p, GLint m)
 
 RevSphere::~RevSphere()
 {
+	delete mat;
+	mat = nullptr,
 	delete mMesh;
 	mMesh = nullptr;
 }
@@ -745,26 +757,20 @@ void RevSphere::render(glm::dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr)
 	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		upload(aMat);
 
 		if (mat != nullptr)
 		{
-			glColor3f(mColor.r, mColor.g, mColor.b);
+			glDisable(GL_COLOR_MATERIAL);
 			mat->upload();
+			mMesh->render();
+			glEnable(GL_COLOR_MATERIAL);
 		}
 		if (mColor.a != 0) {
-			glColor4f(mColor.r, mColor.g, mColor.b, mColor.a);
-		}
-
-		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
-		upload(aMat);
-		mMesh->render();
-
-		glColor3f(1.0, 1.0, 1.0);
-		glColor4f(0, 0, 0, 0);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		if (mat != nullptr) {
-			mat->reset();
+			glColor3f(mColor.r, mColor.g, mColor.b);
+			mMesh->render();
+			glColor3f(1, 1, 1);
 		}
 	}
 }
@@ -774,7 +780,7 @@ RevToroid::RevToroid(GLint r, GLint R, GLint m, GLint p)
 	dvec3* perfil = new dvec3[p];
 
 	for (int i = 0; i < p; i++) {
-		double alpha = i * radians(360.0 / (p - 1)) + radians(90.0);
+		double alpha = i * radians(360.0 / (p - 1)) - radians(90.0);
 		perfil[i] = dvec3(sin(alpha) * r + R, -r * cos(alpha), 0);
 	}
 
@@ -793,7 +799,7 @@ void RevToroid::render(glm::dmat4 const& modelViewMat) const
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		if (mColor.a != 0)
-			glColor4d(mColor.r, mColor.g, mColor.b, mColor.a);
+			glColor3f(mColor.r, mColor.g, mColor.b);
 
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		upload(aMat);

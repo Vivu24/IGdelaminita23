@@ -459,15 +459,6 @@ glm::dvec3 IndexMesh::calculoVectorNormalPorNewell(Cara C) {
 
 void IndexMesh::buildNormalVectors()
 {
-	/*int i = 0;
-	vNormals.resize(nNumIndices);
-	for (int i = 0; i < mNumVertices; i++)
-		vNormals.emplace_back(0, 0, 0);
-	for (const auto cara : vCaras)
-	{
-		vNormals[i] = calculoVectorNormalPorNewell(cara);
-		i++;
-	}*/
 	vNormals.resize(mNumVertices);
 
 	std::vector<glm::dvec3> vAuxNormals = vNormals; // vector auxiliar
@@ -501,82 +492,19 @@ MbR::MbR(GLint mm, GLint mn, glm::dvec3* perfil) :
 	
 }
 
+MbR::~MbR()
+{
+	delete perfil;
+	perfil = nullptr;
+}
+
 MbR* MbR::generateIndexMbR(GLint mm, GLint mn, glm::dvec3* perfil)
 {
-	//MbR* mesh = new MbR(mm, mn, perfil);
-	//// Definir la primitiva como GL_TRIANGLES
-	//mesh->mPrimitive = GL_TRIANGLES;
-
-	//// Añadido pq peta
-	////mesh->nNumIndices = mn * (mm - 1) * 6;
-
-	//// Definir el número de vértices como nn*mm
-	//mesh->mNumVertices == mn * mm;
-	//// Usar un vector auxiliar de vértices
-	//auto vs = new dvec3[mesh->mNumVertices];
-
-	//for (int i = 0; i < mn; i++) {
-	//	// Generar la muestra i- ésima de vértices
-	//	GLdouble theta = i * 360 / mn;
-	//	GLdouble c = cos(radians(theta));
-	//	GLdouble s = sin(radians(theta));
-	//	for (int j = 0; j < mm; j++) {
-	//		GLdouble z = -s * perfil[j].x + c * perfil[j].z;
-	//		GLdouble x = c * perfil[j].x + s * perfil[j].z;
-	//		int indice = i * mm + j;
-	//		vs[indice] = dvec3(x, perfil[j].y, z);
-	//	}
-	//}
-
-	////mesh->vVertices.reserve(mesh->mNumVertices);		// Reservamos vertices por si aca
-
-	//for (int i = 0; i < mesh->mNumVertices; i++)
-	//	mesh->vVertices.push_back(vs[i]);
-
-	//delete[] vs;
-
-	//int indiceMayor = 0;
-	//mesh->nNumIndices = mesh->mNumVertices * 6;
-	//mesh->vIndexes = new GLuint[mesh->nNumIndices];
-	//for (int i = 0; i < mesh->nNumIndices * 6; i++)
-	//	mesh->vIndexes[i] = 0;
-	//// El contador i recorre las muestras alrededor del eje Y
-	//for (int i = 0; i < mn; i++) {
-	//	// El contador j recorre los vértices del perfil ,
-	//	// de abajo arriba . Las caras cuadrangulares resultan
-	//	// al unir la muestra i- ésima con la (i +1)% nn - ésima
-	//	for (int j = 0; j < mm - 1; j++) {		// SE PUEDE PROBAR QUITAR EL -1 PARA QUE FUNCIONE......
-	//		// El contador indice sirve para llevar cuenta
-	//		// de los índices generados hasta ahora . Se recorre
-	//		// la cara desde la esquina inferior izquierda
-	//		int indice = i * mm + j;
-
-	//		mesh->vIndexes[indiceMayor] = indice;
-	//		indiceMayor++;
-	//		mesh->vIndexes[indiceMayor] = (indice + mm) % (mn * mm);
-	//		indiceMayor++;
-	//		mesh->vIndexes[indiceMayor] = (indice + mm + 1) % (mn * mm);
-	//		indiceMayor++;
-
-	//		mesh->vIndexes[indiceMayor] = (indice + mm + 1) % (mn * mm);
-	//		indiceMayor++;
-	//		mesh->vIndexes[indiceMayor] = (indice + mm) % (mn * mm);
-	//		indiceMayor++;
-	//		mesh->vIndexes[indiceMayor] = indice;
-	//		indiceMayor++;
-	//	}
-	//}
-
-	//mesh->vNormals.reserve(mesh->mNumVertices);
-	//mesh->buildNormalVectors();
-	//return mesh;
-
-	/// PASO 3 
 	MbR* mesh = new MbR(mm, mn, perfil);
 	// Definir la primitiva como GL_TRIANGLES
 	mesh->mPrimitive = GL_TRIANGLES;
 	// Definir el número de vértices como nn*mm
-	mesh->mNumVertices = mn * mm;
+	mesh->mNumVertices = (mn * mm);
 	// Usar un vector auxiliar de vértices
 	dvec3* vs = new glm::dvec3[mesh->mNumVertices];
 
@@ -584,6 +512,7 @@ MbR* MbR::generateIndexMbR(GLint mm, GLint mn, glm::dvec3* perfil)
 	{
 		// Generar la muestra i- ésima de vértices
 		GLdouble theta = i * 360 / mn;
+		theta /= 4;
 		GLdouble c = cos(glm::radians(theta));
 		GLdouble s = sin(glm::radians(theta));
 		for (int j = 0; j < mm; j++)
@@ -637,5 +566,6 @@ MbR* MbR::generateIndexMbR(GLint mm, GLint mn, glm::dvec3* perfil)
 
 	mesh->vNormals.reserve(mesh->mNumVertices);
 	mesh->buildNormalVectors();
+
 	return mesh;
 }

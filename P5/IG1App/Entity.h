@@ -7,6 +7,7 @@
 #include "Mesh.h"
 #include "Texture.h"
 #include "Material.h"
+#include "Light.h"
 
 class Abs_Entity // abstract class
 {
@@ -220,6 +221,9 @@ public:
 	AdvancedTIE(Texture* t);
 	~AdvancedTIE();
 	void render(glm::dmat4 const& modelViewMat) const override;
+
+private:
+	SpotLight* foco;
 };
 
 class WingAdvancedTIE : public CompoundEntity {

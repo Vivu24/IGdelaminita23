@@ -20,6 +20,14 @@ public:
 	{
 		freeTextures();
 		freeObjects();
+
+		delete posLight;
+		posLight = nullptr;
+		delete spotLight;
+		spotLight = nullptr;
+		delete dirLight;
+		dirLight = nullptr;
+
 		resetGL();
 	}
 
@@ -33,17 +41,12 @@ public:
 
 	void setScene(GLint id);
 
-	void orbit(float time);
-	void rotate(float time);
-
 	void enableDirLight();
 	void disableDirLight();
 	void enablePosLight();
 	void disablePosLight();
 	void enableSpotLight();
 	void disableSpotLight();
-	void enableFoco();
-	void disableFoco();
 
 	void moveTIELeft();
 	void moveTIERight();
@@ -79,7 +82,6 @@ protected:
 	PosLight* posLight = nullptr;
 	DirLight* dirLight = nullptr;
 	SpotLight* spotLight = nullptr;
-	SpotLight* foco = nullptr;
 };
 
 #endif //_H_Scene_H_

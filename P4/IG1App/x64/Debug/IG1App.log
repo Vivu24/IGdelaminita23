@@ -1,4 +1,20 @@
-﻿  Mesh.cpp
+﻿  Entity.cpp
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Entity.cpp(411,35): warning C4244: 'argumento': conversión de 'double' a 'GLsizei'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Entity.cpp(411,28): warning C4244: 'argumento': conversión de 'double' a 'GLsizei'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Entity.cpp(452,24): warning C4244: 'argumento': conversión de 'const GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Entity.cpp(452,17): warning C4244: 'argumento': conversión de 'const GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Entity.cpp(452,12): warning C4244: 'argumento': conversión de 'const GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Entity.cpp(480,24): warning C4244: 'argumento': conversión de 'const GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Entity.cpp(480,17): warning C4244: 'argumento': conversión de 'const GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Entity.cpp(480,12): warning C4244: 'argumento': conversión de 'const GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Entity.cpp(507,24): warning C4244: 'argumento': conversión de 'const GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Entity.cpp(507,17): warning C4244: 'argumento': conversión de 'const GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Entity.cpp(507,12): warning C4244: 'argumento': conversión de 'const GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Entity.cpp(536,24): warning C4244: 'argumento': conversión de 'GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Entity.cpp(536,17): warning C4244: 'argumento': conversión de 'GLdouble' a 'GLfloat'; posible pérdida de datos
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Entity.cpp(536,12): warning C4244: 'argumento': conversión de 'GLdouble' a 'GLfloat'; posible pérdida de datos
+  IG1App.cpp
+  Mesh.cpp
 C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Mesh.cpp(88,20): warning C4018: '<': no coinciden signed/unsigned
 C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Mesh.cpp(309,23): warning C4018: '<': no coinciden signed/unsigned
 C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Mesh.cpp(414,20): warning C4018: '<': no coinciden signed/unsigned
@@ -8,4 +24,14 @@ C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Mesh.cpp(462,
 C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Mesh.cpp(479,20): warning C4018: '<': no coinciden signed/unsigned
 C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Mesh.cpp(497,21): warning C4553: "==": el resultado de la expresión no se usa. ¿Quiso decir "="?
 C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Mesh.cpp(512,20): warning C4018: '<': no coinciden signed/unsigned
+  Scene.cpp
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Scene.cpp(42,25): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Scene.cpp(42,20): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Scene.cpp(42,15): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Scene.cpp(114,25): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Scene.cpp(114,20): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\IG1App\Scene.cpp(114,15): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
+  main.cpp
+  Generando código...
+  LINK : no se encontró C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\bin\IG1AppDebug.exe o no lo generó el último vínculo incremental; ejecutando vínculo completo
   IG1App.vcxproj -> C:\Users\Javi\Desktop\Escritorio Temporal\IGdelaminita23\P4\bin\IG1AppDebug.exe

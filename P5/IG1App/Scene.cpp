@@ -31,15 +31,6 @@ Scene::freeObjects()
 		el = nullptr;
 	}
 
-	/*delete dirLight;
-	dirLight = nullptr;
-	delete posLight;
-	posLight = nullptr;
-	delete spotLight;
-	spotLight = nullptr;*/
-	delete foco;
-	foco = nullptr;
-
 	gObjects.resize(0);
 }
 void
@@ -60,7 +51,6 @@ Scene::setGL()
 	glEnable(GL_BLEND);
 	glEnable(GL_COLOR_MATERIAL);		// Apartado 56
 	glEnable(GL_NORMALIZE);
-	glEnable(GL_LIGHTING);
 }
 void
 Scene::resetGL()
@@ -86,8 +76,8 @@ void Scene::setLights()
 	glEnable(GL_LIGHTING);
 
 	dirLight = new DirLight();
-	fvec4 ambient = { 0, 0, 0, 1 };
-	fvec4 diffuse = { 1, 1, 1, 1 };
+	fvec4 ambient = { 0.1, 0.1, 0.1, 1 };
+	fvec4 diffuse = { 0.5, 0.5, 0.5, 1 };
 	fvec4 specular = { 0.5, 0.5, 0.5, 1 };
 
 	dirLight->setID(GL_LIGHT0);
@@ -124,8 +114,6 @@ Scene::render(Camera const& cam) const
 		dirLight->upload(cam.viewMat());
 	if (spotLight != nullptr)
 		spotLight->upload(cam.viewMat());
-	if (foco != nullptr)
-		foco->upload(cam.viewMat());
 
 	cam.upload();
 
@@ -139,8 +127,6 @@ Scene::update() {
 	for (Abs_Entity* e : gObjects) {
 		e->update();
 	}
-
-	orbit(10);
 }
 
 void 
@@ -175,43 +161,36 @@ Scene::setScene(GLint id) {
 	gObjects.push_back(new EjesRGB(400.0));
 
 	if (id == 0) { // APARTADO 66
+		// Esfera Gold
 		EntityWithMaterial* sphere_0 = new RevSphere(150, 50, 50);
 		sphere_0->setModelMat(translate(sphere_0->modelMat(), dvec3(0, 0, 300)));
-		sphere_0->setColor(1, 0, 0, 1);
+		sphere_0->setColor(1, 1, 0, 1);
 
 		Material* m = new Material();
 		m->setGold();
 		sphere_0->setMaterial(m);
 
-		QuadricEntity* sphere_1 = new Sphere(150);
+		// Esfera Amarilla
+		EntityWithMaterial* sphere_1 = new RevSphere(150, 50, 50);
 		sphere_1->setModelMat(translate(sphere_1->modelMat(), dvec3(300, 0, 0)));
-		sphere_1->setRGB(1, 0, 0);
+		sphere_1->setColor(1, 1, 0, 1);
 
-		gObjects.push_back(sphere_0);
 		gObjects.push_back(sphere_1);
+		gObjects.push_back(sphere_0);
 	}
 	else if (id == 1) {
 		glClearColor(0, 0, 0, 1);
 
-		foco = new SpotLight();
-		fvec4 ambient = { 0, 0, 0, 1 };
-		fvec4 diffuse = { 1, 1, 1, 1 };
-		fvec4 specular = { 0.5, 0.5, 0.5, 1 };
-
-		foco->setID(GL_LIGHT3);
-		foco->setAmb(ambient);
-		foco->setDiff(diffuse);
-		foco->setSpec(specular);
-
 		QuadricEntity* planeta = new Sphere(200.0);
-		planeta->setModelMat(translate(dmat4(1), dvec3(0.0, -2200.0, .0)) * scale(dmat4(1), dvec3(10.0, 10.0, 10.0)));
+		planeta->setModelMat(translate(planeta->modelMat(), dvec3(0.0, -2200.0, .0)) * scale(dmat4(1), dvec3(10.0, 10.0, 10.0)));
 		planeta->setRGB(1, 0.8, 0);
 
 		CompoundEntity* node = new CompoundEntity();
+		CompoundEntity* node2 = new CompoundEntity();
+		node->addEntity(node2);
 		CompoundEntity* tie = new AdvancedTIE(gTextures[NOCHE]);
-		node->addEntity(tie);
-		node->setModelMat(glm::translate(node->modelMat(), dvec3(0, 0, 0)));
-		//foco->setSpot(node->pos + dvec3(0.0 , 100.0, 0.0), 180.0, 0.0);
+		node2->setModelMat(translate(node->modelMat(), dvec3(0, -2200, 0)));
+		node2->addEntity(tie);
 
 		gObjects.push_back(planeta);
 		gObjects.push_back(node);
@@ -223,19 +202,16 @@ Scene::setScene(GLint id) {
 	}
 	else if (id == 3) {
 		Abs_Entity* toroide = new RevToroid(50.0, 100.0, 50.0, 50.0);
-		toroide->setColor(1, 1, 1, 1);
+		QuadricEntity* planeta = new Sphere(25.0);
+		planeta->setRGB(1, 0.8, 0);
+		planeta->setModelMat(translate(planeta->modelMat(), dvec3(100.0, 0.0, .0)));
+
+		toroide->setColor(0, 0, 1, 1);
 		gObjects.push_back(toroide);
-	}
-}
+		CompoundEntity* node = new CompoundEntity();
 
-void Scene::orbit(float time)
-{
-	if (mId == 1) {
-		GLdouble speed = -8;
-
-		rotY += speed * time;
-		gObjects[1]->rot = dvec3(.0, .0, 1.0);
-		gObjects[1]->ang = glm::radians(rotY);
+		node->addEntity(planeta);
+		gObjects.push_back(node);
 	}
 }
 
@@ -256,7 +232,7 @@ void Scene::enablePosLight()
 
 void Scene::disablePosLight()
 {
-	posLight->enable();
+	posLight->disable();
 }
 
 void Scene::enableSpotLight()
@@ -269,24 +245,39 @@ void Scene::disableSpotLight()
 	spotLight->disable();
 }
 
-void Scene::enableFoco()
-{
-	foco->enable();
-}
-
-void Scene::disableFoco()
-{
-	foco->disable();
-}
-
 void Scene::moveTIELeft()
 {
-	gObjects[2]->setModelMat(translate(gObjects[2]->modelMat(), dvec3(0.0 , 0.0, 10.0)));
-	foco->setSpot(gObjects[2]->pos + dvec3(0.0, 100.0, 0.0), 180.0, 0.0);
+	if (mId == 1) {
+		auto inventedNode = gObjects[2];
+		GLdouble x = sin(radians(90.0));
+		GLdouble z = cos(radians(90.0));
+
+
+		inventedNode->setModelMat(
+			rotate(
+				inventedNode->modelMat(),
+				radians(1.0),
+				dvec3(x, 0, z))
+		);
+	}
+
+	if (mId == 3) {
+		auto inventedNode = gObjects[2];
+		gObjects[2]->setModelMat(
+			translate(inventedNode->modelMat(), dvec3(0, 0, 0))
+			* gObjects[2]->modelMat()
+		);
+		//Hay que girarlo y moverlo
+		dvec3 direction = glm::normalize(glm::dvec3(gObjects[2]->modelMat() * glm::dvec4(0.0, 1.0, 0.0, 0.0)));
+		inventedNode->setModelMat(
+			glm::rotate(dmat4(1), radians(3.0), direction)
+		);
+	}
 }
 
 void Scene::moveTIERight()
 {
-	gObjects[2]->setModelMat(translate(gObjects[2]->modelMat(), dvec3(0.0, 0.0, -10.0)));
-	foco->setSpot(gObjects[2]->pos + dvec3(0.0, 100.0, 0.0), 180.0, 0.0);
+	if (mId == 1) {
+		gObjects[2]->setModelMat(translate(gObjects[2]->modelMat(), dvec3(10, 0, 0)));
+	}
 }

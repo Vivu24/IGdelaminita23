@@ -223,12 +223,6 @@ IG1App::key(unsigned char key, int x, int y)
 		case 'x':
 			mScene->disableSpotLight();
 			break;
-		case 'v':
-			mScene->enableFoco();
-			break;
-		case 'b':
-			mScene->disableFoco();
-			break;
 		case 'f':
 			mScene->moveTIELeft();
 			break;

@@ -72,7 +72,7 @@ protected:
 
 public:
 	MbR(GLint mm, GLint mn, glm::dvec3* perfil);
-	~MbR() override = default;
+	~MbR() override;
 	static MbR* generateIndexMbR(GLint mm, GLint mn, glm::dvec3* perfil);
 };
 #endif //_H_Scene_H_
